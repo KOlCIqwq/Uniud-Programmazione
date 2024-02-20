@@ -1,7 +1,7 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname Lab8) (read-case-sensitive #t) (teachpacks ((lib "hanoi.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "hanoi.ss" "installed-teachpacks")) #f)))
-; This is code is not completed!!
+; This code is not completed!!
 (define (hanoi-disks n k) ; n for number of disks
     (hanoi-rec-disks n k 1 2 3 0 0 0))
 
@@ -13,7 +13,7 @@
            (hanoi-rec-disks (- n 1) (- k (expt 2 (- n 1))) t d s n3 (+ n2 1) n1)] ; Move the disks from temporary to destination using source as an intermediary
           ))
 
-(define (hanoi-rec-disks-info n k s d t n1 n2 n3) 
+(define (hanoi-rec-disks-info n k s d t n1 n2 n3) ; Need to add information about the size of the disks at k pos
     (cond [(= n 0) (list (list s n1) (list d n2) (list t n3))] 
           [(< k (expt 2 (- n 1)))
            (hanoi-rec-disks-info (- n 1) k s t d (+ n1 1) n3 n2)] 
