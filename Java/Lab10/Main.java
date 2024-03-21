@@ -16,30 +16,35 @@ public class Main {
     }
 
     public static StringSList btrplus (String btr, int n){
+        // Create new list
         StringSList btrlist = new StringSList(btr, null);
         for (int i = 1; i < n; i++){
+            // Append the result of btr with calculation
             btrlist = btrlist.cons(Succ(btr));
+            // Update btr
             btr = Succ((btr));
         }
         return btrlist;
     }
 
     public static String Succ(String btr){
-        if (btr.length() == 1){
-            if(btr.charAt(btr.length() - 1) == '+'){
+        int len = btr.length();
+        char lsb = btr.charAt(len - 1); // Last Char of btr
+        if (len == 1){ 
+            if (lsb == '+'){
                 return "+-";
-            } else{
+            } else{ 
                 return "+";
             }
-        }
-        if (btr.charAt(btr.length() - 1) == '+'){
-            return Succ(btr.substring(0, btr.length() - 1)) + "-";
-
-        } else{
-            if (btr.charAt(btr.length() - 1) == '-'){
-                return btr.substring(0, btr.length() - 1) + ".";
-            } else{
-                return btr.substring(0, btr.length() - 1) + "+";
+        }else{
+            // pre is the remaining part (slicing last char)
+            String pre = btr.substring(0, len - 1);
+            if (lsb == '+'){
+                return Succ(pre) + "-";
+            }else{
+                // If last char is - convert it to . else to +
+                char a = (lsb == '-')? '.':'+';
+                return pre + a;
             }
         }
     }
