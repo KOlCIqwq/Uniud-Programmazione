@@ -1,4 +1,4 @@
-
+package Lab11;
 /*
  * Rompicapo delle "n regine"
  *
