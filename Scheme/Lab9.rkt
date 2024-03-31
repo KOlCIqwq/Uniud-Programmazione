@@ -1,42 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname Lab9) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
-;(define (cipher rot)
- ; (lambda (c)
-  ;  (let [(a (char->integer c))]
-   ; (if (<= (+ a rot) codZ)
-    ;    (integer->char (+ a rot))
-     ;   (integer->char (- a (- 26 rot)))
-      ;  )
-    ;)
-  ;)
-  ;)
-
-;(map (lambda (x) (encryption x (cipher 3))) '("ABCD" "EFGH"))
-
-
-(define encryption        ; valore: stringa
-  (lambda (message rule)  ; message: stringa, rule: lettera -> lettera
-    (if (= (string-length message) 0)
-        ""
-        (string-append
-         (string (rule (string-ref message 0)))
-         (encryption (substring message 1) rule)
-         ))
-    ))
-
-
-(define (caesar-cipher c)
-  (let [(a (char->integer c))]
-    (if (<= (+ a 3) codZ)
-        (integer->char (+ a 3))
-        (integer->char (- a 23))
-        )
-    )
-  )
-
-(define codA (char->integer #\A))
-(define codZ (char->integer #\Z))
     
 ;each letter need a specific case, not quick...
 (define (latin-caesar-cipher1 c)
