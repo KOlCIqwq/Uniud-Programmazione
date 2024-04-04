@@ -26,13 +26,13 @@
 
 
 ; d = size, n = number of disk, p = rod, t = height
-(define (hanoi-pictures d n p t)
+(define (rod-builder d n p t)
   (cond [(= (length d) 1) (disk-image (car d) n p t)]
-        [else(above (disk-image (car d) n p t) (hanoi-pictures (cdr d) n p (- t 1)))]
+        [else(above (disk-image (car d) n p t) (rod-builder (cdr d) n p (- t 1)))]
       )
   )
 
-(define (hanoi-picture n k x)
+(define (hanoi-pictures n k x)
   (if (> x 2)
       (towers-background n)
       (let [(list (list-ref(hanoi-rec-disks-more-info n k 1 2 3 0 0 0 null null null)x))]
@@ -40,9 +40,12 @@
               (p (list-ref list 0)) ; Which rod
               (t (list-ref list 1))] ; How many disks
           (if (null? d)
-              (hanoi-picture n k (+ x 1))
-              (above (hanoi-pictures d n p t) (hanoi-picture n k (+ x 1)))
+              (hanoi-pictures n k (+ x 1))
+              (above (rod-builder d n p t) (hanoi-pictures n k (+ x 1)))
               )
           ))
     ))
+
+(define (hanoi-picture n k)
+  (hanoi-pictures n k 0))
        
