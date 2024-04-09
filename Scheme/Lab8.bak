@@ -18,9 +18,7 @@
 (define (hanoi-rec-disks-more-info n k s d t n1 n2 n3 l1 l2 l3) ; Added l1 l2 l3 as lists of sizes of disk in each rod
     (cond [(= n 0) (list (list s n1 l1) (list d n2 l2) (list t n3 l3))]
           [(< k (expt 2 (- n 1)))
-           (hanoi-rec-disks-more-info (- n 1) k s t d (+ n1 1) n3 n2 (cons n l1) l2 l3)]
-          [(> k (expt 2 (- n 1)))
-           (hanoi-rec-disks-more-info (- n 1) k s t d (+ n1 1) n3 n2 (cons n l1) l2 l3)]
+           (hanoi-rec-disks-more-info (- n 1) k s t d (+ n1 1) n3 n2 (cons n l1) l3 l2)]
           [else
            (hanoi-rec-disks-more-info (- n 1) (- k (expt 2 (- n 1))) t d s n3 (+ n2 1) n1 l3 (cons n l2) l1)]
           ))
