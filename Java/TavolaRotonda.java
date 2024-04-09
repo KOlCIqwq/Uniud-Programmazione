@@ -7,7 +7,7 @@ public class TavolaRotonda{
           public TavolaRotonda(int n){
                     quanti = n;
                     brocca = 1;
-                    altri = MainIntSList.intervallo(2, n);
+                    altri = Main.intervallo(2, n);
           }
 
           private TavolaRotonda(int q, int b, IntSList a){
