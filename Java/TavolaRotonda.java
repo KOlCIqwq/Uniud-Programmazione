@@ -29,7 +29,13 @@ public class TavolaRotonda{
           }
 
           public TavolaRotonda Passa(){
-                    IntSList coda = ;
-                    return new TavolaRotonda(quanti, altri.car(), altri.);
+                if (altri.isNull()){
+                    return this;
+                }else{
+                    IntSList coda = IntSList.NULL_INTLIST.cons(brocca);
+                    IntSList nuova = (altri.cdr()).append(coda);
+                    return new TavolaRotonda(quanti, altri.car(),nuova);
+                }
+                    
           }
 }

@@ -5,5 +5,7 @@ package Lab11;
  */
 public class Board {
 
-          
+    public Board (){
+        
+    }
 }
