@@ -18,13 +18,4 @@ public class Main {
         }
         return rt.servingKnights();
     }
-
-    public static int last(int n){
-        RoundTable tr = new RoundTable(n);
-        while (tr.numberOfKnights() > 1){
-            tr = tr.serveNeighbour();
-            tr = tr.passJug();
-        }
-        return tr.knightWithJug();
-    }
 }

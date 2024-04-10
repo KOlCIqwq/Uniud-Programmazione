@@ -35,13 +35,7 @@ public class RoundTable {
   
     return num;
   }
-  
 
-  public int knightWithJug() {             // etichetta del cavaliere
-                                           // con la brocca di sidro
-    return jug;
-  }
-  
   
   // ----- Metodi del protocollo: generazione di configurazioni successive
   
