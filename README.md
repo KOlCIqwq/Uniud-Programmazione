@@ -4,10 +4,10 @@ Per vedere la consegna clicca <a href="https://users.dimi.uniud.it/~claudio.miro
 ---
 #### Lista esercizi:
 Racket:
-[x] Problemi 1-9
+-[x] Problemi 1-9
 Java:
-[x] Conversione da Racket a Java
-[x] Problema 10 
-[] Problema 11
-[] Problema 12
-[] Problema 13
+-[x] Conversione da Racket a Java
+-[x] Problema 10 
+-[] Problema 11
+-[] Problema 12
+-[] Problema 13
