@@ -7,6 +7,6 @@ Per vedere la consegna clicca <a href="https://users.dimi.uniud.it/~claudio.miro
 
 - [x] Conversione da Racket a Java
 - [x] Problema 10 
-- [ ] Problema 11
+- [x] Problema 11
 - [ ] Problema 12
 - [ ] Problema 13
