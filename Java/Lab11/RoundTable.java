@@ -86,6 +86,7 @@ public class RoundTable {
 
   public String servingKnights(){
     IntSList list = IntSList.NULL_INTLIST;
+    // The result is returned as n+1 (maybe it's messed up with starting point), so -1 for the correct visualization
     list = list.cons(jug-1);
     list = list.cons(head.car()-1);
     //list = list.reverse();
