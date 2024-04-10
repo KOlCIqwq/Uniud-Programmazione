@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        
+        System.out.println(last(99));
     }
 
     public static int numSoluzioni(int n){
@@ -22,7 +22,7 @@ public class Main {
             } return count;
         }
     }
-
+    /* 
     public static BoardSList listaSoluzioni(int n){
         return numcomp(new Board(n));
     }
@@ -42,14 +42,15 @@ public class Main {
             } return list;
         }
     }
+    */
 
-    public static int ultimoCavaliere(int n){
-        TavolaRotonda tr = new TavolaRotonda(n);
-        while (tr.quantiCavalieri() > 1){
-            tr = tr.Serve();
-            tr = tr.Passa();
+    public static int last(int n){
+        RoundTable tr = new RoundTable(n);
+        while (tr.numberOfKnights() > 1){
+            tr = tr.serveNeighbour();
+            tr = tr.passJug();
         }
-        return tr.chihaBrocca();
+        return tr.knightWithJug();
     }
 
     public static IntSList intervallo (int inf, int sup){
