@@ -3,9 +3,8 @@ Sono presenti i file laboratorio senza consegna
 Per vedere la consegna clicca <a href="https://users.dimi.uniud.it/~claudio.mirolo/teaching/programmazione/index.html" target="_blank">qui</a>
 ---
 #### Lista esercizi:
-*Racket:*
-- [x] Problemi 1-9 <br>
-*Java:*
+- [x] Problemi 1-9 
+
 - [x] Conversione da Racket a Java
 - [x] Problema 10 
 - [ ] Problema 11
