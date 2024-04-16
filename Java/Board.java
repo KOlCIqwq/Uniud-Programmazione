@@ -1,3 +1,5 @@
+import java.util.function.*;
+
 /**
  * Queen
  */
@@ -7,6 +9,7 @@ public class Board {
           private final int queens;
           private final BiPredicate<Integer, Integer> attack;
           private final String config;
+          
           public Board(int n){
                     size = n;
                     queens = 0;
@@ -18,6 +21,7 @@ public class Board {
                     size = b.size();
                     queens = b.queensOn() + 1;
                     attack = (x, y) -> ((x == i)||(y == j)||(x-y == i-j)||(x+y == i+j)||b.underAttack(x,y));
+                    config = " ";
           }
 
           public int size(){
