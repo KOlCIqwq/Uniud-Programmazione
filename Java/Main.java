@@ -1,7 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-
-        System.out.println(listaSolu(9));
+        System.out.println(listaSolu(4));
     }
 
     public static SList<Board> listaSolu (int n){
@@ -16,7 +15,7 @@ public class Main {
         }else{
             int i = q + 1;
             SList<Board> list = NULL_BOARDLIST;
-            for (int j = 1; j==n; j++){
+            for (int j = 1; j<=n; j++){
                 if (!b.underAttack(i,j)){
                     list = list.append(listacomp(b.addQueen(i, j)));
                 }
