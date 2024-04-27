@@ -14,6 +14,8 @@ package Lab13;
 
 import java.util.function.*;
 
+import Lab10.StringSList;
+
 
 public class SList<T> {                    // Scheme-Like Lists of T
 
@@ -87,11 +89,23 @@ public class SList<T> {                    // Scheme-Like Lists of T
   
   public T listRef( int k ) {              // elemento in posizione k
                                            // Scheme: list-ref
-    if ( k == 0 ) {
+    /*if ( k == 0 ) {
       return car();
     } else {
       return ( cdr().listRef(k-1) );
-    }
+    }*/
+
+    int i = 0; // counter
+        // Get current list
+        SList<T> list = this;
+        // Increment i to k
+        while (i != k){ 
+            i += 1;
+            // Update list
+            list = list.cdr();
+        }
+        // First element is the kth element
+        return list.first;
   }
   
   

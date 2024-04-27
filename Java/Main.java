@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println(listaSolu(4));
+        System.out.println(listaSolu(5));
     }
 
     public static SList<Board> listaSolu (int n){
