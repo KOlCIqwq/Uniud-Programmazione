@@ -6,7 +6,7 @@ public class Queens {
   
     Queens q = new Queens();
 		System.out.println(q.numberOfSolutions(9));
-    //System.out.println(listaSolu(4));
+    //sSystem.out.println(listaSolu(5));
   }
 
 
@@ -82,8 +82,8 @@ public class Queens {
       return count;
     }
   }
-}
-/* Test purpose 
+
+
   private static final SList<Board> NULL_BOARDLIST = new SList<Board>();
 
   public static SList<Board> listaSolu (int n){
@@ -105,5 +105,5 @@ public static SList<Board> listacomp(Board b){
         } return list;
     }
 }
-}*/
+}
 
