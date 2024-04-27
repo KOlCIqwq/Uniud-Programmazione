@@ -1,8 +1,9 @@
 public class DP {
     public static void main(String[] args) {
-        System.out.println(pathsDP(5, 5));    
+        System.out.println(llcsMem("arto", "atrio"));    
     }
 
+    // Normal rec
     public static int fib (int n){
         if (n<2){
             return 1;
@@ -10,8 +11,10 @@ public class DP {
             return fib(n-2) + fib(n-1);
         }
     }
+
+    // DP remember the old paths
     // Init number
-    private static final int UNKNOWN = 0;
+    private static final int UNKNOWN = -1;
 
     public static long pathsMem(int i, int j){
         // New long bi-dimensional array with length i+1 and j+1
@@ -26,7 +29,7 @@ public class DP {
     }
 
     public static long pathsRec(int i, int j, long [][]mem){
-        // If a cell is empty
+        // If a cell is -1
         if (mem[i][j] == UNKNOWN){
             if ((i == 0) || (j == 0)){
                 mem[i][j] = 1;
@@ -60,9 +63,43 @@ public class DP {
         return mem[i][j];
     }
 
+    public static int llcsMem(String u, String v){
+        int i = u.length();
+        int j = v.length();
+        // New long bi-dimensional array with length i+1 and j+1
+        int[][] mem = new int [i+1][j+1];
+        // Fill all the gaps with init
+        for (int k = 0; k <= i; k++){
+            for (int l = 0; l <=j; l++){
+                mem[k][l] = UNKNOWN;
+            }
+        }
+        return llcsRec(u, v, mem);
+    }
+
+
+    private static int llcsRec(String u, String v, int [][]mem){
+        int i = u.length();
+        int j = v.length();
+        if (mem[i][j] == UNKNOWN){
+            if ((i == 0)||(j==0)){
+                // Empty strings
+                mem[i][j] = 0;
+            } else if (u.charAt(0) == v.charAt(0)){
+                // Found 1 equal char
+                mem[i][j] = 1 + llcsRec(u.substring(1), v.substring(1), mem);
+            } else{
+                // Try the longest by subtracking first of each in different path
+                mem[i][j] = Math.max(llcsRec(u.substring(1), v, mem), llcsRec(u, v.substring(1), mem));
+            }
+        }
+        return mem[i][j];
+    }
+
     public static long elapsedTime(int n){
         long t = System.currentTimeMillis();
 
+        // Function
         int x = fib(n);
 
         return (t - x);
