@@ -11,7 +11,7 @@ public class Board {
 
           private final int size;
           private final int queens;
-          //private final BiPredicate<Integer, Integer> attack;
+          private final BiPredicate<Integer, Integer> attack;
           private String config;
           private SList<SList<Integer>> coords;
           private static final SList<SList<Integer>> NULL_INTLIST = new SList<SList<Integer>>();
@@ -19,7 +19,7 @@ public class Board {
           public Board(int n){
             size = n;
             queens = 0;
-            //attack = (x,y) -> false;
+            attack = (x,y) -> false;
             config = "";
             coords = NULL_INTLIST;
           }
@@ -27,7 +27,7 @@ public class Board {
           private Board(Board b, int i, int j){
             size = b.size();
             queens = b.queensOn() + 1;
-            //attack = (x, y) -> ((x == i) || (y == j) || (x-y == i-j) || (x+y == i+j) || b.underAttack(x,y));
+            attack = (x, y) -> ((x == i) || (y == j) || (x-y == i-j) || (x+y == i+j) || b.underAttack(x,y));
             config = b.arrangement() + COLS.charAt(j) + ROWS.charAt(i) + " ";
             // Keep track of the current queen position as list
             SList<Integer> pair = (new SList<Integer>().cons(j).cons(i));
@@ -43,17 +43,24 @@ public class Board {
           }
 
           public boolean underAttack(int i, int j){
+            return attack.test(i,j);
+          }
+          //Need some fix
+          /*
+          public boolean underAttack(int i, int j){
             for (int k = 0; k < coords.length()-1; k++){
               SList<Integer> pair = coords.listRef(k);
               int col = pair.listRef(1);
               int row = pair.car();
               if ((row == j) || (col == i) || (row+col == i+j) || (col-row == i-j)){
                 return true;
-              }else {
+              } else {
                 continue;
               }
-            }return false; 
+            }
+            return false; 
           }
+          */
 
           public Board addQueen(int i, int j){
             

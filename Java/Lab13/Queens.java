@@ -12,8 +12,8 @@ public class Queens {
     
     //System.out.println( numberOfSolutions(5) );
     System.out.println( listOfAllSolutions(5) );
-    //ChessboardView gui = new ChessboardView(5);
-    //queensConfiguration(gui, 5);
+    ChessboardView gui = new ChessboardView(5);
+    viewQueens(gui, 5);
   }
 
   public static final SList<Board> NULL_BOARDLIST = new SList<Board>();
@@ -23,8 +23,8 @@ public class Queens {
     return numberOfCompletions( new Board(n) );
   }
   
-  public static void queensConfiguration(ChessboardView gui,int n) {
-	  Configurations(gui,new Board(n));
+  public static void viewQueens(ChessboardView gui,int n) {
+	  Conf(gui,new Board(n));
   }
 
   private static int numberOfCompletions( Board b ) {
@@ -86,11 +86,22 @@ public class Queens {
     }
   }
 
-  private static void Configurations(ChessboardView gui, Board b ) {
+  private static void Conf(ChessboardView gui, Board b ) {
 	  
     int n = b.size();
     int q = b.queensOn();
+    
+    if (n == q){
+      gui.setQueens(b.arrangement());
+    } else{
+      int i = q + 1;
 
+      for (int j = 1; j <= n; j++){
+        if (!b.underAttack(i, j)){
+          Conf(gui, b.addQueen(i, j));
+        }
+      }
+    }
 }
 
 }
