@@ -28,7 +28,7 @@ public class Board {
             size = b.size();
             queens = b.queensOn() + 1;
             attack = (x, y) -> ((x == i) || (y == j) || (x-y == i-j) || (x+y == i+j) || b.underAttack(x,y));
-            config = b.arrangement() + COLS.charAt(j) + ROWS.charAt(i) + " ";
+            config = b.arrangement() + COLS.charAt(j-1) + ROWS.charAt(i-1) + " ";
             // Keep track of the current queen position as list
             SList<Integer> pair = (new SList<Integer>().cons(j).cons(i));
             coords = b.coordsA().cons(pair);

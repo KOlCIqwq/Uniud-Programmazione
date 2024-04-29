@@ -2,10 +2,6 @@ package Lab13;
 
 import queens.*;
 
-/*
- * TODO: need to finish the second part of problem
- */
-
 public class Queens {
 
   public static void main( String args[] ) {
