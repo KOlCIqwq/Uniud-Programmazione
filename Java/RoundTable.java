@@ -1,29 +1,3 @@
-
-/*
-* Classe RoundTable:
-*
-* Modello alla base del problema di Giuseppe Flavio
-* (rivisto in termini di cavalieri attorno al tavolo)
-*
-* Gli oggetti creati sono "immutabili".
-*
-* Ultimo aggiornamento: 25/03/2021
-*
-*
-* Protocollo:
-*
-*   RoundTable ini = new RoundTable( n );
-*
-*   RoundTable cfg ...
-*
-*     cfg.numberOfKnights() :  int
-*     cfg.kinghtWithJug()   :  int  (etichette)
-*
-*     cfg.serveNeighbour()  :  RoundTable
-*     cfg.passJug()         :  RoundTable
-*/
-
-
 public class RoundTable {
 
 
