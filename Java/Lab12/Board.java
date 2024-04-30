@@ -8,8 +8,8 @@ package Lab12;
  */
 public class Board {
   // To print out the position
-    private static final String ROWS = "123456789ABCDEF";
-    private static final String COLS = "abcdefghijk";
+    private static final String ROWS = " 123456789ABCDEF";
+    private static final String COLS = " abcdefghijk";
           // 7 Variables
           private final int size;
           private final int queens;

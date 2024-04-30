@@ -90,6 +90,7 @@ public class Queens {
     if (n == q){
       gui.setQueens(b.arrangement());
     } else{
+      
       int i = q + 1;
 
       for (int j = 1; j <= n; j++){
