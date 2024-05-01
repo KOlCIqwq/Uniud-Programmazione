@@ -82,9 +82,11 @@
   )
 
 ;; Order the list (Merge sort)
+;; Tree-rec. to cut the lst into 2, everytime until it gets to a single element, then the merge func. will compare two elements returning 1 lst,
+;; We keep going up by comparing 2 already sorted list to get to final sorted array
 (define (sorted-list lst)
   (cond [(<= (length lst) 1) lst] ; List has only 1 member print lst
-   (else (merge (sorted-list (take lst (quotient (length lst) 2))) (sorted-list (drop lst (quotient (length lst) 2))))) ;Divede the list into two parts
+   (else (merge (sorted-list (take lst (quotient (length lst) 2))) (sorted-list (drop lst (quotient (length lst) 2))))
    )
   )
 
