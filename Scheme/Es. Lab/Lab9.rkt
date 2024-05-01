@@ -25,8 +25,8 @@
       (latin-caesar-cipher-rec str (+ k 1) (string-append out (string(latin-caesar-cipher-char (string-ref str k)))))
       ))
 
-;We give a list of char containing only latin letters, and we shift them in base of their pos in the list
-;If not a latin char we output space
+;Give a list of char containing only latin letters, and shift them in base of their pos in the list
+;If not a latin char output space
 ;Caesar-cipher in latin letters
 (define (latin-caesar-cipher-char c)
   (let [(latin-letters '(#\ #\A #\B #\C #\D #\E #\F #\G #\H #\I #\L #\M #\N #\O #\P #\Q #\R #\S #\T #\V #\X))]
@@ -72,7 +72,7 @@
     )
   )
 ;add = H (identity -> x) (s2 -> v+1), m n as inputs
-;It recalls H decrementing n to 0 and applying +1 to m each time H function is recalled
+;It recalls H decresing n to 0 and applying +1 to m each time H function is recalled
 ;(add 1 2)-> (s2 1 (add 1 1))->(s2 1 (s2 1 (add 1 0)))->(s2 1 (s2 1 (1)))->(s1 1(2))->3
 (define add (H id s2))
 
