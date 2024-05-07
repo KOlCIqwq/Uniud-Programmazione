@@ -1,17 +1,11 @@
 package Lab13;
 
-//import java.util.function.*;
-/**
- * Queen
- * TODO: need to finish the underAttack function
- */
 public class Board {
     private static final String ROWS = " 123456789ABCDEF";
     private static final String COLS = " abcdefghijk";
 
           private final int size;
           private final int queens;
-          //private final BiPredicate<Integer, Integer> attack;
           private String config;
           private SList<SList<Integer>> coords;
           private static final SList<SList<Integer>> NULL_INTLIST = new SList<SList<Integer>>();
@@ -19,7 +13,6 @@ public class Board {
           public Board(int n){
             size = n;
             queens = 0;
-            //attack = (x,y) -> false;
             config = "";
             coords = NULL_INTLIST;
           }
@@ -27,12 +20,10 @@ public class Board {
           private Board(Board b, int i, int j){
             size = b.size();
             queens = b.queensOn() + 1;
-            //attack = (x, y) -> ((x == i) || (y == j) || (x-y == i-j) || (x+y == i+j) || b.underAttack(x,y));
             config = b.arrangement() + COLS.charAt(j) + ROWS.charAt(i) + " ";
             // Keep track of the current queen position as list
             SList<Integer> pair = (new SList<Integer>().cons(j).cons(i));
             coords = b.coordsA().cons(pair);
-            System.out.println(coords);
           }
 
           public int size(){
@@ -42,15 +33,9 @@ public class Board {
           public int queensOn(){
             return queens;
           }
-          /* 
-          public boolean underAttack(int i, int j){
-            return attack.test(i,j);
-          } */
-          
-          //Need some fix
           
           public boolean underAttack(int i, int j){
-            for (int k = 0; k < coords.length()-1; k++){
+            for (int k = 0; k < coords.length(); k++){
               SList<Integer> pair = coords.listRef(k);
               
               int v = pair.cdr().car();
