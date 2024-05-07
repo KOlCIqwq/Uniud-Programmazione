@@ -9,8 +9,8 @@ Per vedere la consegna clicca <a href="https://users.dimi.uniud.it/~claudio.miro
 - [x] Problema 10 
 - [x] Problema 11
 - [x] Problema 12
-- [ ] Problema 13 
-- [ ] Progetto LIS part1
+- [x] Problema 13 
+- [x] Progetto LIS part1
 - [ ] LIS part2
 - [ ] Huffman I
 - [ ] Huffman II
