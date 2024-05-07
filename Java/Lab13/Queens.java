@@ -11,7 +11,6 @@ public class Queens {
     ChessboardView gui = new ChessboardView(5);
     viewQueens(gui, 5);
   }
-
   public static final SList<Board> NULL_BOARDLIST = new SList<Board>();
   
    public static int numberOfSolutions( int n ) {
