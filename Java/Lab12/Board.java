@@ -13,7 +13,6 @@ public class Board {
           // 7 Variables
           private int size;
           private int queens;
-          // private final BiPredicate<Integer, Integer> attack;
           private String config;
           private IntSList COL;
           private IntSList ROW;
@@ -23,7 +22,6 @@ public class Board {
           public Board(int n){
             size = n;
             queens = 0;
-            //attack = (x,y) -> false;
             config = "";
             COL = IntSList.NULL_INTLIST;
             ROW = IntSList.NULL_INTLIST;
@@ -39,8 +37,6 @@ public class Board {
             DgP = dgp;
             DgM = dgm;
             config = conf;
-            //attack = (x, y) -> ((x == i) || (y == j) || (x-y == i-j) || (x+y == i+j) || b.underAttack(x,y));
-            //config = b.arrangment() + COLS.charAt(j) + ROWS.charAt(i) + " ";
           }
 
           public int size(){
@@ -54,35 +50,6 @@ public class Board {
           public boolean underAttack(int i, int j){
             // Start a recursive function
             return checkAttack(i, j, COL, ROW, DgP, DgM);
-            /*IntSList row = ROW;
-            for (int k = 0; k < ROW.length(); k++){
-              if(ROW.car() == i){
-                return true;
-              }
-              row = row.cdr();
-            } 
-            IntSList col = COL;
-            for (int k = 0; k < COL.length(); k++){
-              if(COL.car() == j){
-                return true;
-              }
-              col = col.cdr();
-            } 
-            IntSList dgp = DgP;
-            for (int k = 0; k < DgP.length(); k++){
-              if(DgP.car() == i+j){
-                return true;
-              }
-              dgp = dgp.cdr();
-            } 
-            IntSList dgm = DgM;
-            for (int k = 0; k < DgM.length(); k++){
-              if(DgM.car() == i-j){
-                return true;
-              }
-              dgm = dgm.cdr();
-            }
-            return false; */
           }
           
           public boolean checkAttack(int i, int j, IntSList col, IntSList row, IntSList dgp, IntSList dgm){
