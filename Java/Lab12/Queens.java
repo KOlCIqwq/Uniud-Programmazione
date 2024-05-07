@@ -5,7 +5,7 @@ public class Queens {
   public static void main( String args[] ) {
   
     Queens q = new Queens();
-		System.out.println(q.numberOfSolutions(9));
+		System.out.println(q.numberOfSolutions(8));
     System.out.println(listaSolu(5));
   }
 
