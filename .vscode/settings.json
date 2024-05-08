@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "Java/Lab13/queens.jar"
+        "Java/Lab13/queens.jar",
+        "Java/Huffman/huffman_toolkit.jar"
     ]
 }
