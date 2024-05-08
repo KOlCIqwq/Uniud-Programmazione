@@ -1,5 +1,3 @@
-package Lis;
-
 // To get the max of a number in an array 
 import java.util.Arrays;
 
