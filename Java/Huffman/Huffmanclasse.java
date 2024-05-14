@@ -10,7 +10,7 @@ public class Huffmanclasse {
         int[] x = checkFreq("Java/Huffman/Main.java");
         System.out.println(Arrays.toString(x));
         System.out.println(huffmanTree(x));
-        Node y = compress("Java/Huffman/Main.java", "Java/Huffman/dst.txt");
+        //Node y = compress("Java/Huffman/Main.java", "Java/Huffman/dst.txt");
         //System.out.println(y);
         //decompress("Java/Huffman/dst.txt", "Java/Huffman/src.txt", y);
     }
@@ -68,6 +68,8 @@ public class Huffmanclasse {
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
 
+        out.writeTextLine("" + tree.Weight());
+
         while (in.textAvailable()){
             char c = in.readChar();
             out.writeCode(table[c]);
@@ -81,7 +83,7 @@ public class Huffmanclasse {
         
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
-        int count = root.Weight();
+        int count = Integer.parseInt(in.readTextLine());
 
         for (int i = 0; i < count; i++){
             char c = restoreChar(in,root);
