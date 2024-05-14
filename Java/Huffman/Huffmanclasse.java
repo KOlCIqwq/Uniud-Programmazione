@@ -8,13 +8,14 @@ import huffman_toolkit.OutputTextFile;
 public class Huffmanclasse {
     public static void main(String[] args) {
         int[] x = checkFreq("Java/Huffman/Main.java");
-        System.out.println(Arrays.toString(x));
-        System.out.println(huffmanTree(x));
-        //Node y = compress("Java/Huffman/Main.java", "Java/Huffman/dst.txt");
+        //System.out.println(Arrays.toString(x));
+        //System.out.println(huffmanTree(x));
+        compress("Java/Huffman/Main.java", "Java/Huffman/dst.txt");
         //System.out.println(y);
-        //decompress("Java/Huffman/dst.txt", "Java/Huffman/src.txt", y);
+        //decompress("Java/Huffman/dst.txt", "Java/Huffman/src.txt");
+        
     }
-    
+    // Check the frequency of each char
     public static int[] checkFreq(String src){
         InputTextFile in = new InputTextFile( src );
         int [] freq = new int[InputTextFile.CHARS];
@@ -29,7 +30,7 @@ public class Huffmanclasse {
         in.close();
         return freq;
     }
-
+    // Construct the huffmanTree
     public static Node huffmanTree(int[] freq){
         PriorityQueue<Node> queue = new PriorityQueue<Node>();
         for (int i = 0; i < freq.length; i++){
@@ -45,7 +46,7 @@ public class Huffmanclasse {
         }
         return queue.poll();
     }
-
+    // Fill the table
     public static String[] huffmantable(Node root){
         String[] table = new String[InputTextFile.CHARS];
         fillTable (root, "", table);
@@ -60,8 +61,8 @@ public class Huffmanclasse {
             fillTable(root.Right(), s+"1", table);
         }
     }
-
-    public static Node compress (String src, String dst){
+    // Compress a file with new coded bits
+    public static void compress (String src, String dst){
         int[] freq = checkFreq(src);
         Node tree = huffmanTree(freq);
         String[] table = huffmantable(tree);
@@ -69,6 +70,7 @@ public class Huffmanclasse {
         OutputTextFile out = new OutputTextFile(dst);
 
         out.writeTextLine("" + tree.Weight());
+        out.writeTextLine(flatTree(tree));
 
         while (in.textAvailable()){
             char c = in.readChar();
@@ -76,15 +78,17 @@ public class Huffmanclasse {
         }
         in.close();
         out.close();
-        return tree;
+        
     }
-
-    public static void decompress (String src, String dst, Node root){
+    // The opposite
+    public static void decompress (String src, String dst){
         
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
         int count = Integer.parseInt(in.readTextLine());
-
+        Node root = restoreTree(in);
+        // skip a line 
+        in.readTextLine();
         for (int i = 0; i < count; i++){
             char c = restoreChar(in,root);
             out.writeChar(c);
@@ -103,5 +107,33 @@ public class Huffmanclasse {
             }
         } while(!root.IsLeaf());
         return root.symbol();
+    }
+
+    private static Node restoreTree(InputTextFile in){
+        char c = in.readChar();
+        if (c == '@'){
+            Node left = restoreTree(in);
+            Node right = restoreTree(in);
+            return new Node(left, right);
+        } else{
+            if (c == '\\'){
+                c = in.readChar();
+            }
+            return new Node(c,0);
+        }
+    }
+    // Write the huffeman tree as a flat text
+    public static String flatTree(Node n){
+        if (n.IsLeaf()){
+            char c = n.symbol();
+            // if it's '\\' means that its already a huffman code
+            if ((c == '@') || (c == '\\')){
+                return "\\" + c;
+            } else{
+                return "" + c;
+            }
+        } else{
+            return "@" + flatTree(n.Left()) + flatTree(n.Right()); 
+        }
     }
 }
