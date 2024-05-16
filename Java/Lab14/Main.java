@@ -12,9 +12,11 @@ public class Main {
         n.Movetile(3,1);
         System.out.println(n.toString());
         String overview = n.guiString();
+        System.out.println(overview);
         //int[] x = n.findPosition(6);
         //System.out.println(Arrays.toString(x));
         PuzzleBoard gui = new PuzzleBoard(4);
+        
         Init(overview, gui);
         play(4,n,gui);
     }
@@ -24,15 +26,23 @@ public class Main {
         int col = 1;
         for (int i = 0; i < overview.length(); i++){
             char current = overview.charAt(i);
-            StringBuilder num = new StringBuilder();
+            String num = "";
             if (Character.isDigit(current)){
                 int j = i + 1;
                 while (j < overview.length() && Character.isDigit(overview.charAt(j))) {
                     int temp = overview.charAt(j);
-                    num = num.append(temp);
+                    num += temp;
                     j++;
                 }
-                int k = Integer.parseInt(num.toString());
+                int k = 0;
+                if (num != ""){
+                    System.out.println("1");
+                    k = Integer.parseInt(num);
+                } else{
+                    System.out.println("2");
+                    k = current; 
+                }
+                
                 gui.setNumber(row, col, k);
                 col++;
                 i = j - 1;
