@@ -1,5 +1,6 @@
 package Lab14;
-import java.util.Arrays;
+
+import java.util.Scanner; // To get user input
 
 import puzzleboard.*;
 /*
@@ -7,7 +8,13 @@ import puzzleboard.*;
  */
 public class Main {
     public static void main(String[] args) {
-        Board n = new Board (4);
+        // Request an input of size
+        Scanner reader = new Scanner(System.in);
+        System.out.println("Enter the size of puzzle");
+        int x = reader.nextInt();
+        reader.close();
+
+        Board n = new Board (x);
         System.out.println(n.toString());
         n.Movetile(3,1);
         System.out.println(n.toString());
@@ -15,15 +22,16 @@ public class Main {
         System.out.println(overview);
         //int[] x = n.findPosition(6);
         //System.out.println(Arrays.toString(x));
-        PuzzleBoard gui = new PuzzleBoard(4);
+        
+        PuzzleBoard gui = new PuzzleBoard(x);
         //gui.setNumber(1, 1, 2);
         //gui.display();
-        Init(overview, gui);
-        play(4, n, gui);
+        Init(x, overview, gui);
+        play(x, n, gui);
     }
 
     
-    public static void Init(String overview, PuzzleBoard gui){
+    public static void Init(int n, String overview, PuzzleBoard gui){
         int row = 1;
         int col = 1;
         for (int i = 0; i < overview.length(); i++){
@@ -31,18 +39,17 @@ public class Main {
             String num = "";
             if (Character.isDigit(current)){
                 int j = i + 1;
+                num += current;
                 while (j < overview.length() && Character.isDigit(overview.charAt(j))) {
-                    int temp = overview.charAt(j);
-                    num += temp;
+                    num += overview.charAt(j);
                     j++;
                 }
+                
                 int k = 0;
                 if (num != ""){
                     k = Integer.valueOf(num);
-                    System.out.println(k);
                 } else{
                     k = current - '0'; 
-                    System.out.println(k);
                     
                 }
                 gui.setNumber(row, col, k);
