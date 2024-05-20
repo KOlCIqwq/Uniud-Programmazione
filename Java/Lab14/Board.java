@@ -31,7 +31,8 @@ public class Board {
             }
         }
         // Times to shuffle the board
-        int exTimes = 100;
+        int exTimes = (int)((Math.random() * 1000000)) + 10000;
+        System.out.println("Times Shuffled:" + exTimes);
         //Up, Down, Left, Right
         int[][] directions ={{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         for (int i = 0; i < exTimes; i++){
