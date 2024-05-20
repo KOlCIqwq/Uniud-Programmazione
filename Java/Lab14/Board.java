@@ -1,6 +1,10 @@
 package Lab14;
 
 public class Board {
+    /*
+     * @param: table to represent the table of board
+     *         iHole, jHole to give the current position in table of the hole 
+     */
     private static int [][] table;
     private static int dim;
     private static int iHole, jHole;
@@ -65,6 +69,7 @@ public class Board {
         }*/
     }
 
+    // Check if the board is ordered
     public boolean isOrdered(){
         int prev = 0;
         // Loop the board
@@ -81,7 +86,7 @@ public class Board {
     }
 
     public static boolean canMove(int i, int j){
-        // Check if the hole is in up or down position
+        // Check if the hole is in up or down position, Math.abs give the absolute val Math.abs(-1) = 1
         if (Math.abs(i - iHole) == 1 && j == jHole){
             return true;
         } // Check if the hole is in left or right position
@@ -103,6 +108,7 @@ public class Board {
         return conf;
     }
 
+    // A not required function to represent the flatten table with i as space between nums and n as nexxt row
     public String guiString(){
         String conf = "";
         for (int i = 0; i < dim; i++){
@@ -126,6 +132,7 @@ public class Board {
         }
     }
 
+    // A function to transform the number of user input into the position in the table
     public static int[] findPosition(int k){
         int[] pos = new int[2];
 
