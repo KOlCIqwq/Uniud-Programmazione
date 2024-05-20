@@ -10,7 +10,10 @@ public class Huffmanclasse {
         int[] x = checkFreq("Java/Huffman/Main.java");
         //System.out.println(Arrays.toString(x));
         //System.out.println(huffmanTree(x));
-        compress("Java/Huffman/Main.java", "Java/Huffman/dst.txt");
+        //compress("Java/Huffman/Main.java", "Java/Huffman/dst.txt");
+        Node y = huffmanTree(x);
+        String s = flatTree(y);
+        System.out.println(s);
         //System.out.println(y);
         //decompress("Java/Huffman/dst.txt", "Java/Huffman/src.txt");
         
@@ -124,16 +127,25 @@ public class Huffmanclasse {
     }
     // Write the huffeman tree as a flat text
     public static String flatTree(Node n){
-        if (n.IsLeaf()){
-            char c = n.symbol();
-            // if it's '\\' means that its already a huffman code
-            if ((c == '@') || (c == '\\')){
-                return "\\" + c;
+        Stack<Node> stack = new Stack<Node>();
+        stack.push(n);
+        String out = "";
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+            if (n.IsLeaf()){
+                char c = node.symbol();
+                // if it's '\' means a special char
+                if ((c == '@') || (c == '\\')){
+                    out += "\\" + c;
+                } else{
+                    out += c;
+                }
             } else{
-                return "" + c;
+                out += "@";
+                stack.push(node.Right());
+                stack.push(node.Left()); 
             }
-        } else{
-            return "@" + flatTree(n.Left()) + flatTree(n.Right()); 
         }
+        return out;
     }
 }
