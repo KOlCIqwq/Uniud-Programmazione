@@ -89,7 +89,7 @@ public class Main {
                     n.Movetile(i, j);
                     UpdateGUI(dim,n,gui);
                 } else{
-                    System.out.println("Can't move tile");
+                    System.out.println("Can't move tile" + " " + k);
                 }
             }
         }
