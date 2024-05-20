@@ -16,11 +16,13 @@ public class Main {
         //int[] x = n.findPosition(6);
         //System.out.println(Arrays.toString(x));
         PuzzleBoard gui = new PuzzleBoard(4);
-        
+        //gui.setNumber(1, 1, 2);
+        //gui.display();
         Init(overview, gui);
-        play(4,n,gui);
+        play(4, n, gui);
     }
 
+    
     public static void Init(String overview, PuzzleBoard gui){
         int row = 1;
         int col = 1;
@@ -36,13 +38,13 @@ public class Main {
                 }
                 int k = 0;
                 if (num != ""){
-                    System.out.println("1");
-                    k = Integer.parseInt(num);
+                    k = Integer.valueOf(num);
+                    System.out.println(k);
                 } else{
-                    System.out.println("2");
-                    k = current; 
+                    k = current - '0'; 
+                    System.out.println(k);
+                    
                 }
-                
                 gui.setNumber(row, col, k);
                 col++;
                 i = j - 1;
@@ -84,6 +86,6 @@ public class Main {
                 }
             }
         }
-        System.out.println("Resolved");
+        System.out.println("Bravo, piccotto");
     }
 }
