@@ -14,4 +14,4 @@ Sono presenti i file laboratorio senza consegna
 - [ ] LIS part2
 - [ ] Huffman I
 - [ ] Huffman II
-- [ ] Problema 14
+- [x] Problema 14
