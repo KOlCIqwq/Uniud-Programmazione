@@ -113,17 +113,34 @@ public class Huffmanclasse {
     }
 
     private static Node restoreTree(InputTextFile in){
-        char c = in.readChar();
-        if (c == '@'){
-            Node left = restoreTree(in);
-            Node right = restoreTree(in);
-            return new Node(left, right);
-        } else{
-            if (c == '\\'){
-                c = in.readChar();
+        Node n = new Node(null, null);
+        Stack<Frame> stack = new Stack<Frame>();
+        stack.push(new Frame());
+        while (!stack.isEmpty()){
+            Frame f = stack.peek();
+            if (f.getState() == 0){
+                char c = in.readChar();
+                if(c == '@'){
+                    f.setState(1);
+                    stack.push(new Frame());
+                } else{
+                    if (c == '\\'){
+                        c = in.readChar();
+                    }
+                    n = new Node (c, 0);
+                    stack.pop();
+                }
+            } else if (f.getState() == 1){
+                f.setSin(n);
+                stack.push(new Frame());
+                f.setState(2);
+            } else{
+                f.setDes(n);
+                n = new Node(f.getSin(), f.getDes());
+                stack.pop();
             }
-            return new Node(c,0);
         }
+        return n;
     }
     // Write the huffeman tree as a flat text
     public static String flatTree(Node n){
