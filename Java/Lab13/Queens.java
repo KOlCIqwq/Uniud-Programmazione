@@ -7,9 +7,9 @@ public class Queens {
   public static void main( String args[] ) {
     
     //System.out.println( numberOfSolutions(5) );
-    System.out.println( listOfAllSolutions(5) );
-    ChessboardView gui = new ChessboardView(5);
-    viewQueens(gui, 5);
+    System.out.println( listOfAllSolutions(10) );
+    ChessboardView gui = new ChessboardView(10);
+    viewQueens(gui, 10);
   }
   public static final SList<Board> NULL_BOARDLIST = new SList<Board>();
   
