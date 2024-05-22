@@ -36,7 +36,7 @@ public class Main {
     }
 
     public static Node huffmanTree(int[] freq){
-        PriorityQueue<Node> queue = new PriorityQueue<Node>();
+        NodeQueue queue = new NodeQueue();
         for (int i = 0; i < freq.length; i++){
             if (freq[i] > 0){
                 queue.add(new Node((char) i, freq[i]));
