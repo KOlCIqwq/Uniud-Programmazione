@@ -1,7 +1,7 @@
 // To get the max of a number in an array 
 import java.util.Arrays;
 
-public class LIS {
+public class LLIS {
     public static void main(String[] args) {
         System.out.println(lisMem(new int[] {6, 1, 7, 2, 8, 3, 9, 4, 10, 5}));
         System.out.println(lisGen(new int[] {8, 9, 10, 11, 12, 4, 5, 6, 7, 1, 2, 3}));
