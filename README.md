@@ -12,6 +12,6 @@ Sono presenti i file laboratorio senza consegna
 - [x] Problema 13 
 - [x] Progetto LIS part1
 - [x] LIS part2
-- [ ] Huffman I
+- [x] Huffman I
 - [ ] Huffman II
 - [x] Problema 14
