@@ -21,11 +21,14 @@ class NodeQueue{
           }
 
           public static Node poll(){
-                    Node minNode = heap[0];
-                    heap[0] = heap[size--];
-                    heap[size] = null;
-                    heapifyToggle(0);
-                    return minNode;
+            if (size == 0) {
+              return null;
+            }
+            Node min = heap[0];
+            heap[0] = heap[size - 1];
+            size--;
+            heapifyToggle(0);
+            return min;
           }
 
           public static void add(Node n){
@@ -52,25 +55,32 @@ class NodeQueue{
           }
 
           private static void heapifyToggle(int index){
-            while(true){
-              int leftChild = 2 * index + 1;
-              int rightChild = 2 * index + 2;
-              int small = index;
-              //if (leftChild < size && heap[leftChild].Weight() < heap[small].Weight()){
-                //small = leftChild;
-              //}
-              if (rightChild < size && heap[rightChild].Weight() < heap[leftChild].Weight()){
-                small = rightChild;
+            while (index < size / 2) {
+              int leftChildIndex = 2 * index + 1;
+              int rightChildIndex = 2 * index + 2;
+              int smallestChildIndex = leftChildIndex;
+  
+              if (rightChildIndex < size && heap[rightChildIndex].Weight() < heap[leftChildIndex].Weight()) {
+                  smallestChildIndex = rightChildIndex;
               }
-              if (small == index){
-                break;
+  
+              if (heap[index].Weight() <= heap[smallestChildIndex].Weight()) {
+                  break;
               }
+              
               Node temp = heap[index];
-              heap[index] = heap[small];
-              heap[small] = temp;
-              index = small;
-            }
+              heap[index] = heap[smallestChildIndex];
+              heap[smallestChildIndex] = temp;
+              index = smallestChildIndex;
           }
+          }
+
+          private static void swap(int index1, int index2) {
+            Node temp = heap[index1];
+            heap[index1] = heap[index2];
+            heap[index2] = temp;
+        }
+    
 
           private static void resize(){
             Node[] newHeap = new Node[heap.length * 2];

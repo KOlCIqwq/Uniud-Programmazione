@@ -1,5 +1,6 @@
 package Huffman.Huff_Lab;
 import java.util.PriorityQueue;
+import java.util.*;
 
 import huffman_toolkit.*;
 public class Main {
@@ -35,20 +36,25 @@ public class Main {
         return freq;
     }
 
+    private static final int CHARS = InputTextFile.CHARS;
+
     public static Node huffmanTree(int[] freq){
         NodeQueue queue = new NodeQueue();
-        for (int i = 0; i < freq.length; i++){
-            if (freq[i] > 0){
-                queue.add(new Node((char) i, freq[i]));
-            }
+        
+        for ( int c=0; c<CHARS; c=c+1 ) {                      
+        if ( freq[c] > 0 ) {
+            Node n = new Node( (char) c, freq[c] );             
+            queue.add( n );                                     
+        }}
+        while ( queue.size() > 1 ) {                            
+        
+        Node l = queue.poll();                                
+        Node r = queue.poll();
+        
+        Node n = new Node( l, r );                            
+        queue.add( n );                                       
         }
-        while (queue.size() > 1){
-            Node left = queue.poll();
-            Node right = queue.poll();
-            Node merge = new Node(left, right);
-            queue.add(merge);
-        }
-        return queue.poll();
+        return queue.poll();   
     }
 
     public static String[] huffmantable(Node root){
