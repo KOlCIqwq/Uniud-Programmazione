@@ -7,15 +7,16 @@ import huffman_toolkit.OutputTextFile;
 
 public class Huffmanclasse {
     public static void main(String[] args) {
-        int[] x = checkFreq("Java/Huffman/Main.java");
+        int[] x = checkFreq("Java/Huffman/Frame.java");
         //System.out.println(Arrays.toString(x));
         //System.out.println(huffmanTree(x));
         //compress("Java/Huffman/Main.java", "Java/Huffman/dst.txt");
         Node y = huffmanTree(x);
-        String s = flatTree(y);
-        System.out.println(s);
+        //String s = flatTree(y);
+        //System.out.println(s);
         //System.out.println(y);
-        //decompress("Java/Huffman/dst.txt", "Java/Huffman/src.txt");
+        decompress("Java/Huffman/dst.txt", "Java/Huffman/src.txt");
+        
         
     }
     // Check the frequency of each char
