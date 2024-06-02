@@ -3,9 +3,9 @@ import java.util.Arrays;
 
 public class LLIS {
     public static void main(String[] args) {
-        System.out.println(lisMem(new int[] {6, 1, 7, 2, 8, 3, 9, 4, 10, 5}));
-        System.out.println(lisGen(new int[] {8, 9, 10, 11, 12, 4, 5, 6, 7, 1, 2, 3}));
-        System.out.println(lisDP(new int[] {54, 52, 42, 33, 14, 40, 37, 61, 53, 1}));
+        //System.out.println(lisMem(new int[] {6, 1, 7, 2, 8, 3, 9, 4, 10, 5}));
+        //System.out.println(lisGen(new int[] {8, 9, 10, 11, 12, 4, 5, 6, 7, 1, 2, 3}));
+        System.out.println(lisDP(new int[] {2, 7, 5, 7, 4}));
     }
 
     public static int lisMem(int[] s){
@@ -71,13 +71,14 @@ public class LLIS {
     
     // Using Dynamic Programming
     public static int lisDP(int[] s){
+        int n = s.length;
         int[] Dp = new int [s.length+1];
         for (int k = 0; k <= s.length; k++){
             Dp[k] = 1;
         }
-        for (int i = 1; i < s.length; i++){
-            for (int j = 0; j < i; j++){
-                if (s[i] > s[j]){
+        for (int i = n-1; i>= 0; i--){
+            for (int j = i; j < n; j ++){
+                if (s[i] < s[j]){
                     Dp[i] = Math.max(Dp[i], 1 + Dp[j]);
                 }
             }
