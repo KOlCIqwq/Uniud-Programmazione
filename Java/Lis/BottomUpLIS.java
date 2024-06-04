@@ -43,7 +43,8 @@ public class BottomUpLIS {
     // Going backward as row but forward as col
     for ( int i=n-1; i>=0; i=i-1 ) {
       for ( int j=0; j<=n; j=j+1 ) {
-        // if j touch the down part -> change it to 0; otherwise compare s[j]
+        // if j touch the down part -> change it to 0; otherwise compare s[j] with s[i]
+        // Meainng let it compare the current number if it can fit into with s[j] number creating subsequence
         if (s[i] <= (j == n ? 0 : s[j])){
           mem[i][j] = mem[i+1][j];
         } else{
