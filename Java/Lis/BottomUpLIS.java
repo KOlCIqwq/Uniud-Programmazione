@@ -65,6 +65,7 @@ public class BottomUpLIS {
     int pointer = 0; // Output array pointer
 
     while (mem[i][j] > 0 ) {
+      int t = (j == n) ? 0 : s[j];
       // If the diagonal or the left values are equal to the current + 1 then it can be a candidate to number in subsequence
       if (mem[i][j] == 1 + mem[i + 1][i] || mem[i][j] == 1 + mem[i + 1][j]){
         // Add the number to array
