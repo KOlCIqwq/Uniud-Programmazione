@@ -7,10 +7,9 @@ public class Main {
     private static final int[] frequency = new int[128];
 
     public static void main(String[] args) {
-        //randomText("Java/Huffman/Huff_Lab/test.txt");
+        randomText("Java/Huffman/Huff_Lab/test.txt");
         compress("Java/Huffman/Huff_Lab/test.txt", "Java/Huffman/Huff_Lab/compressed.txt");
         decompress("Java/Huffman/Huff_Lab/compressed.txt", "Java/Huffman/Huff_Lab/decompressed.txt");
-        System.out.println(Arrays.toString(frequency));
     }
 
     public static void randomText(String dst){
@@ -19,9 +18,12 @@ public class Main {
         int length = (int)((Math.random() * 100)) + 10;
         for (int i = 0; i < length; i++){
             // Let c be any number between 0 and 128
-            char c = (char) (128 * Math.random());
+            Random random = new Random();
+            int number = 33 + random.nextInt(127 - 33 + 1);
+            char c = (char) number;
             out.writeChar(c);
         }
+        System.out.println("genarated" + " " + length + " "+ "chars");
         out.close();
     }
 
@@ -59,7 +61,7 @@ public class Main {
         for (char c = 'A'; c <= 'Z'; c++){
             char currentLow = Character.toLowerCase(c);
             // The uppercase occurs same frequency as lower, and appears usually at the start of each phrase
-            frequency[c] = frequency[currentLow] / 20;
+            frequency[c] = frequency[currentLow] / 10;
         }
 
         frequency['.'] = LENGTH / 24; // Approximation: 1 period per sentence, assuming 24 words per sentence
@@ -83,9 +85,9 @@ public class Main {
                 frequency[c] = 10;
             }
         }
-    }
+    } 
 
-    /* 
+    
     public static int[] checkFreq(String src){
         InputTextFile in = new InputTextFile(src);
         int[] freq = new int[InputTextFile.CHARS];
@@ -99,7 +101,7 @@ public class Main {
         }
         in.close();
         return freq;
-    }*/
+    }
 
     private static final int CHARS = InputTextFile.CHARS;
 
@@ -128,83 +130,127 @@ public class Main {
         return table;
     }
 
-    public static void fillTable(Node root, String s, String[] table){
-        if (root.IsLeaf()){
-            table[root.symbol()] = s;
-        } else{
-            fillTable(root.Left(), s+"0", table);
-            fillTable(root.Right(), s+"1", table);
+    public static String[] huffmanCodesTable( Node root ) {
+  
+        String[] codes = new String[ CHARS ];                   
+        
+        fillTable( root, "", codes );                         
+        
+        return codes;
+      }
+      
+      private static void fillTable( Node n, String code, String[] codes ) {
+      
+        if ( n.IsLeaf() ) {
+          codes[ n.symbol() ] = code;                       
+        } else {
+          fillTable( n.Left(),  code+"0", codes );              
+          fillTable( n.Right(), code+"1", codes );             
         }
-    }
-
-    public static void compress (String src, String dst){
-        int[] freq = frequency;
-        Node tree = huffmanTree(freq);
-        String[] table = huffmantable(tree);
-        InputTextFile in = new InputTextFile(src);
-        OutputTextFile out = new OutputTextFile(dst);
-
-        while (in.textAvailable()){
-            char c = in.readChar();
-            out.writeCode(table[c]);
+      }
+      
+      public static String flattenTree( Node n ) {
+        
+        if ( n.IsLeaf() ) {                                 
+          char c = n.symbol();
+          if ( (c == '\\') || (c == '@') ) {
+            return ( "\\" + c );                                
+          } else {
+            return ( "" + c );                                 
+          }
+        } else {
+          return ( "@"                                         
+                 + flattenTree( n.Left() )                      
+                 + flattenTree( n.Right() )                     
+                   );
+        }
+      }
+      
+      public static void compress( String src, String dst ) {
+        
+        int[] freq = frequency;                      
+        
+        Node root = huffmanTree( freq );                        
+        
+        int count = root.Weight();                              
+        String[] codes = huffmanCodesTable( root );             
+        
+        InputTextFile in = new InputTextFile( src );            
+        
+        OutputTextFile out = new OutputTextFile( dst );         
+        
+        out.writeTextLine( "" + count );                        
+        out.writeTextLine( flattenTree(root) );
+        
+        for ( int j=0; j<count; j=j+1 ) {                       
+        
+          char c = in.readChar();
+          // To prevent compressing character over the ascii table
+          if (c < 128){
+            out.writeCode( codes[c] );
+          } else{
+            break;
+          }
+          
         }
         in.close();
         out.close();
-    }
-
-    public static Node restoreTree(InputTextFile in) {
-  
-        char c = (char) in.readChar();                          // carattere dell'intestazione
+      }
+      
+      public static Node restoreTree( InputTextFile in ) {
+      
+        char c = (char) in.readChar();                          
         
-        if ( c == '@' ) {                                       // '@' ?
+        if ( c == '@' ) {                                      
         
-          Node left  = restoreTree(in);                       // sottoalbero sinistro
+          Node left  = restoreTree( in );                       
           
-          Node right = restoreTree(in);                       // sottoalbero destro
+          Node right = restoreTree( in );                       
           
-          return new Node( left, right );                       // nodo genitore
+          return new Node( left, right );                       
         
         } else {
           if ( c == '\\' ) {
-            c = (char) in.readChar();                           // carattere speciale (skip)
+            c = (char) in.readChar();                           
           }
-          return new Node( c, 0 );                              // foglia
+          return new Node( c, 0 );                              
         }
       }
       
       public static void decompress( String src, String dst ) {
         
-        InputTextFile in = new InputTextFile(src);            // documento compresso
+        InputTextFile in = new InputTextFile( src ); 
         
-        int count = Integer.parseInt( in.readTextLine() );      // decodifica dell'intestazione
-        Node root = restoreTree(in);
+        int count = Integer.parseInt( in.readTextLine() );  
+        Node root = restoreTree( in );                     
         
-        String dummy = in.readTextLine();                       // codici caratteri dopo il fine-linea
+        OutputTextFile out = new OutputTextFile( dst );         
         
-        OutputTextFile out = new OutputTextFile(dst);         // documento ripristinato
-        
-        for ( int j=0; j<count; j=j+1 ) {                       // scansione: decodifica dei caratteri
+        for ( int j=0; j<count; j=j+1 ) {                       
           
-          char c = decodeNextChar(root, in);
-          out.writeChar(c);
+          char c = decodeNextChar( root, in );
+          // for some reason it keeps going, writing in the file ','; so added a check to exit when reached the end
+          if (c == ','){
+            break;
+          } else{
+                out.writeChar( c );
+            }
         }
         in.close();
         out.close();
       }
       
-      private static char decodeNextChar(Node root, InputTextFile in) {
+      private static char decodeNextChar( Node root, InputTextFile in ) {
       
-        Node n = root;                                          // percorso lungo l'albero di Huffman
-        
+        Node n = root;                                          
         do {
           if ( in.readBit() == 0 ) {
-            n = n.Left();                                       // bit 0: figlio sinistro
+            n = n.Left();                                      
           } else {
-            n = n.Right();                                      // bit 1: figlio destro
+            n = n.Right();                                     
           }
-        } while ( !n.IsLeaf() );                                // fino al raggiungimento di una foglia
+        } while ( !n.IsLeaf() );                               
         
-        return n.symbol();                                   // carattere individuato
+        return n.symbol();                                  
       }
-      
 }
