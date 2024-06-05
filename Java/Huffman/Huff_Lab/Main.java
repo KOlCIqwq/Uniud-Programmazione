@@ -15,10 +15,10 @@ public class Main {
 
     public static void randomText(String dst){
         OutputTextFile out = new OutputTextFile(dst);
-
-        
+        // Give a random int as length of the file
         int length = (int)((Math.random() * 100)) + 10;
         for (int i = 0; i < length; i++){
+            // Let c be any number between 0 and 128
             char c = (char) (128 * Math.random());
             out.writeChar(c);
         }
@@ -88,7 +88,7 @@ public class Main {
     /* 
     public static int[] checkFreq(String src){
         InputTextFile in = new InputTextFile(src);
-        int [] freq = new int[InputTextFile.CHARS];
+        int[] freq = new int[InputTextFile.CHARS];
         for (int i = 0; i < freq.length; i++){
             // Init
             freq[i] = 0;

@@ -1,10 +1,12 @@
 package Huffman.Huff_Lab;
 
 class NodeQueue{
+  // A PriorityQueue is an unbounded priority queue based on a priority heap
     private static Node[] heap;
     private static int size;
 
     public NodeQueue(){
+      // Create a new Heap with 10 Nodes
       heap = new Node[10];
       size = 0;
     }
@@ -13,6 +15,7 @@ class NodeQueue{
       return size;
     }
 
+    // First element
     public static Node peek(){
       if (size == 0){
         return null;
@@ -20,6 +23,7 @@ class NodeQueue{
       return heap[0];
     }
 
+    // Toggle the first element
     public static Node poll(){
       if (size == 0) {
         return null;
@@ -31,6 +35,7 @@ class NodeQueue{
       return min;
     }
 
+    // Add an element
     public static void add(Node n){
       if (size == heap.length){
         resize();
@@ -40,7 +45,7 @@ class NodeQueue{
     }
     // Transforming a head into a correct order after adding a new element
     private static void heapifyadd(int index){
-      // To deepest
+      // Loop to the top
       while (index > 0){
           // Compare the val of the current leaf with it's parent 
           int parentIndex = (index - 1) / 2;
