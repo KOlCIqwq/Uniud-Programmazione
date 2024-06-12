@@ -5,11 +5,20 @@ import java.util.Stack;
 public class esercitazione{
           public static void main(String[] args) {
                     System.out.println(initllcs3("cane", "can", "can"));
-                    int[][] m = new int[3][3];
-                    for (int i = 0; i < 3; i++){
-                              m[i][i] = 1;
-                    }
-                    System.out.println(checkSym(m));
+                    int[][] matrix1 = {
+                        {1, 2, 3},
+                        {2, 4, 5},
+                        {4, 5, 7}
+                    };
+                    System.out.println(checkSym(matrix1));
+                    //int[][] m = new int[3][3];
+                    //for (int i = 0; i < 3; i++){
+                      //        m[i][i] = 1;
+                    //}
+                    //System.out.println(checkSym(m));
+                    double[] pair = closestPair( new double[] {0.3, 0.1, 0.6, 0.8, 0.5, 1.1} );
+                    System.out.println(pair[0]+" "+pair[1]);
+                    System.out.println(commonStretches( "1110110111", "1100011101" ));
           }
 
           //1.
@@ -32,20 +41,31 @@ public class esercitazione{
                               }
                     }
                     int[][][] mem = new int[maxLen+1][maxLen+1][maxLen+1];
-                    return llcs3(t, u, v, mem, 0, 0, 0);
+                    for (int i = 0; i <= a; i++) {
+                        for (int j = 0; j <= b; j++) {
+                            for (int k = 0; k <= c; k++) {
+                                mem[i][j][k] = -1;
+                            }
+                        }
+                    }
+                    return llcs3(t, u, v, mem, a, b, c);
           }
           public static int llcs3 (String t, String u, String v, int[][][] mem, int i, int j, int k){
-                    if ((t == "") || (u == "") || (v == "")){
-                              return mem[i][j][k];
-                    }else if (t.charAt(0) == u.charAt(0) && u.charAt(0) == v.charAt(0)){
-                              mem[i+1][j+1][k+1] = mem[i][j][k] + 1;
-                              return llcs3(t.substring(1), u.substring(1), v.substring(1), mem, i+1, j+1, k+1);
-                    }else{
-                              mem[i+1][j+1][k+1] = Math.max(llcs3(t.substring(1), u, v, mem, i+1, j, k), Math.max(llcs3(t, u.substring(1), v, mem, i, j+1, k),llcs3(t, u, v.substring(1), mem, i, j, k+1)));
+            if (i == 0 || j == 0 || k == 0){
+                return 0;
+            }
 
-                    }
-                    return mem[i][j][k];
+            if (mem[i][j][k] != -1){
+                return mem[i][j][k];
+            }
 
+            if (t.charAt(i - 1) == u.charAt(j - 1) && t.charAt(i - 1) == v.charAt(k - 1)){
+                mem[i][j][k] = 1 + llcs3(t, u, v, mem, i-1, j-1, k-1);
+            }else{
+                mem[i][j][k] = Math.max(Math.max(llcs3(t, u, v, mem, i-1, j, k),llcs3(t, u, v, mem, i, j-1, k)),llcs3(t, u, v, mem, i, j, k-1));
+
+            }
+            return mem[i][j][k];
           }
           //2.
           public static boolean checkSym (int[][] m){
@@ -67,6 +87,7 @@ public class esercitazione{
                     }
                     return true;
           } 
+
           // 3. see the file Board.java
           public static void listOfCompletions( Board b ) {
                     int n = b.size(); int q = b.queensOn();
@@ -100,9 +121,42 @@ public class esercitazione{
                     } else if ( d+1 < sc) {
                               depth.push(sc);
                               stack.push(n.Right());
+                              depth.push(d+1);
                               stack.push(n.Left());
+                              depth.push((d+1));
                     }
                     } while (!stack.isEmpty());
                     return sc;
           }
+          // 5.
+          public static double[] closestPair(double[] list){
+            double[] pair = new double[2];
+            double minDiff = Double.MAX_VALUE;
+            double diff = 0;
+            for (int i = 0; i < list.length; i++){
+                for (int j = i + 1;j < list.length; j++){
+                    diff = Math.abs(list[i] - list[j]);
+                    if (minDiff > diff){
+                        minDiff = diff;
+                        pair[0] = list[i];
+                        pair[1] = list[j];
+                    }
+                }
+            }
+            return pair;
+          }
+
+          //6.
+          public static int commonStretches(String p1, String p2){
+            int counter = -1;
+            for (int i = 0; i < p1.length(); i++){
+                if (p1.charAt(i) == p2.charAt(i)){
+                    counter++;
+                }
+            }
+            return counter;
+          }
+
+          //7.
+          
 }

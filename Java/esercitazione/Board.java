@@ -28,7 +28,7 @@ public class Board {
             }else{
               size = b.size();
               queens = b.queensOn() - 1;
-              config = b.arrangement().substring(0,2);
+              config = b.arrangement().substring(0,b.arrangement().length() - 3);
               coords = b.coordsA().cdr();
             }
             
@@ -112,6 +112,14 @@ public class Board {
 
 
   public Board removeQueen(int i, int j){
-    return new Board(this, i ,j, true);
+    for (int k = 0; k < coords.length(); k++){
+      SList<Integer> pair = coords.listRef(k);
+      int v = pair.cdr().car();
+      int u = pair.car();
+      if (u == i && v == j){
+        return new Board(this, i,j,true);
+      }
+    }
+    return this;
   }
 }
