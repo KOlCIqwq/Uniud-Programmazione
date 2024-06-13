@@ -2,6 +2,8 @@ package esercitazione;
 
 import java.util.Stack;
 
+import oracle.jrockit.jfr.StringConstantPool;
+
 public class esercitazione{
           public static void main(String[] args) {
                     System.out.println(initllcs3("cane", "can", "can"));
@@ -19,7 +21,11 @@ public class esercitazione{
                     double[] pair = closestPair( new double[] {0.3, 0.1, 0.6, 0.8, 0.5, 1.1} );
                     System.out.println(pair[0]+" "+pair[1]);
                     System.out.println(commonStretches( "1110110111", "1100011101" ));
-          }
+                    System.out.println(heapCheck( new double[] { 5.0, 3.1, 5.7, 3.1, 8.5, 6.0, 3.8, 4.2, 9.3 } )); 
+                    String s = lpsDP("irradiare");
+                    
+                    System.out.println(s);
+                }
 
           //1.
           public static int initllcs3 (String t, String u, String v){
@@ -158,5 +164,76 @@ public class esercitazione{
           }
 
           //7.
-          
+          public static class Frame {
+            public final Node node;
+            public final int depth;
+            public Frame(Node node, int depth) {
+            this.node = node;
+            this.depth = depth;
+            }
+         } // class Frame
+         public static int codeSizeIter( Node root ) {
+            long bits = 0;
+            Stack<Frame> stack = new Stack<Frame>();
+            stack.push(new Frame(root, 0));
+            do {
+                Frame current = stack.pop();
+                Node n = current.node;
+                int depth = current.depth;
+                if (n.IsLeaf()){
+                    bits += depth * n.Weight();
+                } else{
+                    if (n.Right()!=null){
+                        stack.push(new Frame(n.Right(), depth + 1));
+                    } 
+                    if (n.Left()!=null){
+                        stack.push(new Frame(n.Left(), depth + 1));
+                    }
+                }
+            } while (!stack.isEmpty());
+            return (int) ( bits / 7 ) + ( (bits%7 > 0) ? 1 : 0 );
+         }
+
+         //8. Not finishe (i don't know)
+         public static boolean heapCheck(double[] v){
+            for (int i = 0; i <= v.length/2; i++){
+                int leftIndex = 2*i+1;
+                int rightIndex = 2*i+2;
+                if (v[i] > v[rightIndex] || v[i] > v[leftIndex]){
+                    return false;
+                }
+            }
+            return true;
+         }
+
+         //9. not working
+         public static String lpsDP( String s ) {
+            int n = s.length();
+            String [][]mem = new String[n+1][n+1];
+            for ( int k=0; k<=n; k=k+1 ) {
+                for ( int i=0; i<=n-k; i=i+1 ) {
+            // k : lunghezza della sottostringa s* di s considerata;
+            // i : posizione di s* in s:
+            // s* corrisponde al potenziale argomento di una invocazione ricorsiva di lps.
+                    if ( k < 2 ) {
+                        return mem[i][i+k];
+                    } else if ( s.charAt(i) == s.charAt(i+k-1) ) {
+                        mem[i][i+k-1] = s.charAt(i) + (k == 2 ? "":mem[i+1][i+k-2] + s.charAt(i+k-1));
+                    } else {
+                        mem[k][i+k-1] = longer(mem[i][i+k-2], mem[i+1][i+k-1]);
+                    }
+                }}
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        System.out.print((mem[i][j] != null ? mem[i][j] : "null") + "\t");
+                    }
+                    System.out.println();
+                }
+            return mem[0][n-1];
+            }
+            
+
+            public static String longer(String a, String b) {
+                return a.length() > b.length() ? a : b;
+            }
 }
