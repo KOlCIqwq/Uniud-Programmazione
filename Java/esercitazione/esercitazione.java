@@ -21,7 +21,7 @@ public class esercitazione{
                     double[] pair = closestPair( new double[] {0.3, 0.1, 0.6, 0.8, 0.5, 1.1} );
                     System.out.println(pair[0]+" "+pair[1]);
                     System.out.println(commonStretches( "1110110111", "1100011101" ));
-                    System.out.println(heapCheck( new double[] { 5.0, 3.1, 5.7, 3.1, 8.5, 6.0, 3.8, 4.2, 9.3 } )); 
+                    System.out.println(heapCheck( new double[] { 5.0, 3.1, 5.7, 3.1, 8.5, 6.0, 3.0, 4.2, 9.3 } )); 
                     String s = lpsDP("irradiare");
                     
                     System.out.println(s);
@@ -194,13 +194,18 @@ public class esercitazione{
             return (int) ( bits / 7 ) + ( (bits%7 > 0) ? 1 : 0 );
          }
 
-         //8. Not finishe (i don't know)
+         //8.
          public static boolean heapCheck(double[] v){
-            for (int i = 0; i <= v.length/2; i++){
-                int leftIndex = 2*i+1;
-                int rightIndex = 2*i+2;
-                if (v[i] > v[rightIndex] || v[i] > v[leftIndex]){
+            for (int i = 1; i < v.length/2; i++){
+                int left = 2 * i;
+                int right = 2 * i +1;
+                if (v[i] > v[left] || left >= v.length){
                     return false;
+                }
+                if(right <= v.length){
+                    if (v[i] > v[right]){
+                        return false;
+                    }
                 }
             }
             return true;
@@ -216,19 +221,13 @@ public class esercitazione{
             // i : posizione di s* in s:
             // s* corrisponde al potenziale argomento di una invocazione ricorsiva di lps.
                     if ( k < 2 ) {
-                        return mem[i][i+k];
+                        //return mem[i][i+k];
                     } else if ( s.charAt(i) == s.charAt(i+k-1) ) {
-                        mem[i][i+k-1] = s.charAt(i) + (k == 2 ? "":mem[i+1][i+k-2] + s.charAt(i+k-1));
+                        //mem[i][i+k-1] = s.charAt(i) + (k == 2 ? "":mem[i+1][i+k-2] + s.charAt(i+k-1));
                     } else {
-                        mem[k][i+k-1] = longer(mem[i][i+k-2], mem[i+1][i+k-1]);
+                        //mem[k][i+k-1] = longer(mem[i][i+k-2], mem[i+1][i+k-1]);
                     }
                 }}
-                for (int i = 0; i < n; i++) {
-                    for (int j = 0; j < n; j++) {
-                        System.out.print((mem[i][j] != null ? mem[i][j] : "null") + "\t");
-                    }
-                    System.out.println();
-                }
             return mem[0][n-1];
             }
             
