@@ -9,6 +9,8 @@ public class G23 {
         System.out.println(llisMem(new double[]{1, 2, 1, 9, 12}));
         SList<Board> solutions = listOfSolutionsIter(6);
         System.out.println(solutions.toString());
+        char c = leastFrequentChar(new char[] {'a','b','c','b','c','a','a','d','c','d','c','e','e','e'});
+        System.out.println(c);
     }
 
     //1.
@@ -100,4 +102,25 @@ public class G23 {
 
     //4.
     // Moved to Board2.java
+    //---------------------------------------------------------------
+    //B.
+
+    //1.
+    public static char leastFrequentChar (char[] list){
+        int[] freq = new int[128];
+        for (int i = 0; i < list.length; i++){
+            char c = list[i];
+            freq[c]++;
+        }
+        char out = 0;
+        int minLen = 100;
+        for (int i = 0; i < list.length; i++){
+            char current = list[i];
+            if(freq[current] < minLen){
+                minLen = freq[current];
+                out = current;                
+            } 
+        }
+        return out;
+    }
 }
