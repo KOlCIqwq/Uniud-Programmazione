@@ -54,9 +54,7 @@ class NodeQueue{
               break;
           }
           // If the current is less to it's parent swap them
-          Node temp = heap[index];
-          heap[index] = heap[parentIndex];
-          heap[parentIndex] = temp;
+          swap(index, parentIndex);
       }
     }
 
