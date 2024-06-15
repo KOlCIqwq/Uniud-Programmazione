@@ -1,4 +1,4 @@
-package esercitazione;
+package esami;
 
 public class Node implements Comparable<Node> {
 
