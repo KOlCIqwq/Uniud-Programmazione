@@ -1,4 +1,6 @@
-package esami;
+package esami.es22_21;
+
+
 /*
  * Classe SList<T>: Scheme-like Lists of T (generics)
  *

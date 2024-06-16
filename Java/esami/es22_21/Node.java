@@ -1,4 +1,4 @@
-package esami;
+package esami.es22_21;
 
 public class Node implements Comparable<Node> {
 

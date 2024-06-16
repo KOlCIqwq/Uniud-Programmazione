@@ -1,4 +1,6 @@
-package esami;
+package esami.es22_23;
+
+
 
 public class Board2 {
 

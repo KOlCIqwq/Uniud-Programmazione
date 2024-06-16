@@ -1,4 +1,6 @@
-package esami;
+package esami.es22_23;
+
+
 
 public class Board {
     private static final String ROWS = " 123456789ABCDEF";

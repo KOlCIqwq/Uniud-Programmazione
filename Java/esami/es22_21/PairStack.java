@@ -1,4 +1,5 @@
-package esami;
+package esami.es22_21;
+
 
 public class PairStack {
     private SList<Pair> pairs;
