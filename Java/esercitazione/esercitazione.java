@@ -209,7 +209,7 @@ public class esercitazione{
             return true;
          }
 
-         //9. not working
+         //9.
          public static String lpsDP( String s ) {
             int n = s.length();
             String [][]mem = new String[n+1][n+1];
