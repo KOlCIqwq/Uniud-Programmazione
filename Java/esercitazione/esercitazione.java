@@ -20,7 +20,7 @@ public class esercitazione{
                     System.out.println(pair[0]+" "+pair[1]);
                     System.out.println(commonStretches( "1110110111", "1100011101" ));
                     System.out.println(heapCheck( new double[] { 5.0, 3.1, 5.7, 3.1, 8.5, 6.0, 3.0, 4.2, 9.3 } )); 
-                    String s = lpsDP("abcdxyzozyxefgh");
+                    String s = lpsDP("abcdadcba");
                     System.out.println(s);
                     
                 }
@@ -216,16 +216,17 @@ public class esercitazione{
             for (int i = 0; i < n; i++) {
                 mem[i][i] = s.substring(i, i + 1);
             }
-            for ( int k=2; k<=n; k=k+1 ) {
+            for ( int k=0; k<=n; k=k+1 ) {
                 for ( int i=0; i<=n-k; i=i+1 ) {
                     int j = i + k - 1;
             // k : lunghezza della sottostringa s* di s considerata;
             // i : posizione di s* in s:
             // s* corrisponde al potenziale argomento di una invocazione ricorsiva di lps.
                     if ( k < 2 ) {
-                        return s;
+                        //continue;
+                        mem[i][j+1] = mem[i][j+1] + "";
                     } else if ( s.charAt(i) == s.charAt(i+k-1) ) {
-                        mem[i][j] = s.charAt(i) + (k == 2 ? "" : mem[i + 1][j - 1]) + s.charAt(j);
+                        mem[i][j] = s.charAt(i) + mem[i + 1][j - 1] + s.charAt(j);
                     } else {
                         mem[i][j] = longer(mem[i][j - 1], mem[i + 1][j]);
                     }
