@@ -70,4 +70,13 @@ public class Board2 {
         }
         return -1;
     }
+
+    public int freeRow(){
+        for (int i = 1; i < size; i++){
+            if (rowAttacked[i] == 0){
+                return i;
+            }
+        }
+        return -1;
+    }
 }

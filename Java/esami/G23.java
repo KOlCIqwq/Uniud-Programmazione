@@ -11,6 +11,8 @@ public class G23 {
         System.out.println(solutions.toString());
         char c = leastFrequentChar(new char[] {'a','b','c','b','c','a','a','d','c','d','c','e','e','e'});
         System.out.println(c);
+        System.out.println(llisMem2(new double[] {3.0, 1.0, 8.0, 2.0, 5.0}));
+        System.out.println(numberOfSolutionsIter(10));
     }
 
     //1.
@@ -123,4 +125,58 @@ public class G23 {
         }
         return out;
     }
+
+    //2.
+    public static int llisMem2(double[] s){
+        int n = s.length;
+        double[] v = s.clone();
+        Arrays.sort(v);
+        int[][] mem = new int[n+1][n+1];
+        for (int i = 0; i <= s.length; i++){
+            for (int j = 0; j <= s.length; j++){
+                mem[i][j] = -1;
+            }
+        }
+        return llcsRec2(n, n, mem, s, v);
+    }
+
+    public static int llcsRec2(int i, int j, int[][]mem, double[]u, double[] v){
+        
+        if (mem[i][j] == -1){
+            if (i == 0 || j == 0){
+                mem[i][j] = 0;
+            } else if (u[i-1] == v[j-1]){
+                mem[i][j] = 1 + llcsRec2(i-1, j-1, mem, u, v);
+            } else{
+                mem[i][j] = Math.max(llcsRec2(i-1, j, mem, u, v), llcsRec2(i, j-1, mem, u, v));
+            }
+        }
+        return mem[i][j];
+    }
+
+    //3.
+    public static int numberOfSolutionsIter( int n ) {
+        Stack<Board> stack = new Stack<Board>();
+        stack.push(new Board(n));
+        int count = 0;
+        do {
+            Board b = stack.pop();
+            n = b.size();
+            int q = b.queensOn();
+            if ( q == n ) {
+                count++;
+            } else {
+                int i = q + 1;
+                for (int j = 1; j <= n; j++){
+                    if (!b.underAttack(i, j)){
+                        stack.push(b.addQueen(i, j));
+                    }
+                }
+            }
+        } while (!stack.empty());
+        return count;
+    }
+
+    //4. 
+    //Moved to Board2.java    
 }
