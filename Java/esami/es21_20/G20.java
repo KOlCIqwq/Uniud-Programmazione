@@ -17,26 +17,22 @@ public class G20 {
         return rec2( x-1, y, z ) + x * rec2( x, y+1, z );
         }
         }
-    //2.2 Not finished
+    //2.2
     public static long rec (int x,int y, int z){
-        long[][][] mem = new long[x+1][y+1][z+1];
+        long[][] mem = new long[x+1][z+1];
         for (int i = 0; i <= x; i++){
-            for (int j = 0; j <= y; j++){
-                for(int k = 0; k <= z; k++){
-                    mem[i][j][k] = 1;
-                }
+            mem[i][z] = 1;
+        }
+        for (int j = 0; j <= y; j++){
+            mem[1][j] = 1;
+        }
+        for (int i = 1; i <= x; i++){
+            for (int j = z-1; j >= 1; j--){
+                    mem[i][j] = mem[i-1][j] + i * mem[i][j+1];
+                
             }
         }
-
-        for (int i = 1; i < x; i++){
-            for (int j = 1; j < y; j++){
-                for (int k = 1; k < z; k++){
-                    mem[i+1][j+1][k+1] = mem[i-1][j][k] + i * mem[i][j+1][k];
-                }
-            }
-        }
-
-        return mem[x][y][z];
+        return mem[x][y];
     }
 
     //3.
