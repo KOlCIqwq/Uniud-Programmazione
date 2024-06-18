@@ -40,11 +40,12 @@ public class Board {
         //Up, Down, Left, Right
         int[][] directions ={{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         for (int i = 0; i < exTimes; i++){
+            // Pick a random number between 0-3, and let it be the index of directions
             int dirIndex = (int)(Math.random()*4);
             int[] direction = directions[dirIndex];
-            
             int randIHole = iHole + direction[0];
             int randJHole = iHole + direction[1];
+
             // Check if moving to the direction is in the bound or not
             if (randIHole >= 0 && randIHole < dim && randJHole >= 0 && randJHole < dim){
                 // Replace the present hole with the number and change the number to hole
@@ -108,7 +109,7 @@ public class Board {
         return conf;
     }
 
-    // A not required function to represent the flatten table with i as space between nums and n as nexxt row
+    // A not required function to represent the flatten table with i as space between nums and n as next row
     public String guiString(){
         String conf = "";
         for (int i = 0; i < dim; i++){

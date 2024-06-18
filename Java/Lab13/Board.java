@@ -7,6 +7,7 @@ public class Board {
           private final int size;
           private final int queens;
           private String config;
+          // Save all the info into a list of 2 variables, indicating queens position (i,j)
           private SList<SList<Integer>> coords;
           private static final SList<SList<Integer>> NULL_INTLIST = new SList<SList<Integer>>();
           
@@ -36,8 +37,8 @@ public class Board {
           
           public boolean underAttack(int i, int j){
             for (int k = 0; k < coords.length(); k++){
+              // Consider all the pairs of i,j in coords
               SList<Integer> pair = coords.listRef(k);
-              
               int v = pair.cdr().car();
               int u = pair.car();
               if ((u == i) || (v == j) || (i-j == u-v) || (i+j == u+v)){

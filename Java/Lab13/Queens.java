@@ -13,17 +13,17 @@ public class Queens {
   }
   public static final SList<Board> NULL_BOARDLIST = new SList<Board>();
   
-   public static int numberOfSolutions( int n ) {
-    
+  public static int numberOfSolutions( int n ) {
+    // Init
     return numberOfCompletions( new Board(n) );
   }
   
   public static void viewQueens(ChessboardView gui,int n) {
+    // Init
 	  Conf(gui,new Board(n));
   }
 
   private static int numberOfCompletions( Board b ) {
-  
     int n = b.size();
     int q = b.queensOn();
     
@@ -44,16 +44,9 @@ public class Queens {
       return count;
     }
   }
-  
-  
-  /*
-   * II. Lista delle soluzioni:
-   *
-   * Confronta il programma precedente!
-   */
-  
+
   public static SList<Board> listOfAllSolutions( int n ) {
-  
+    // Init
     return listOfAllCompletions( new Board(n) );
   }
   
@@ -91,9 +84,9 @@ public class Queens {
     } else{
       
       int i = q + 1;
-
       for (int j = 1; j <= n; j++){
         if (!b.underAttack(i, j)){
+          // Instead of tracking it as String or List, we just display it on gui
           Conf(gui, b.addQueen(i, j));
         }
       }

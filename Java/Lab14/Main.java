@@ -56,7 +56,7 @@ public class Main {
                     k = current - '0'; 
                 }
                 gui.setNumber(row, col, k);
-                // Move the col, while is there's no instruction on jump row (n)
+                // Move the col, while is there's no instruction to jump row (n)
                 col++;
                 // Adjust the i pointer to the jth position - 1
                 i = j - 1;
@@ -64,6 +64,7 @@ public class Main {
                 // Unecesarry
                 continue;
             } else if (current == 'n') {
+                // Jump row iif it's next line (n)
                 row++;
                 col = 1;
             }
@@ -90,6 +91,7 @@ public class Main {
 
     // Detect user's input and update the table
     public static void play(int dim, Board n, PuzzleBoard gui){
+        int countClicks = 0;
         // Keep gui alive
         while(!n.isOrdered()){
             int k = gui.get();
@@ -99,6 +101,7 @@ public class Main {
             int j = position[1];
             if (k != 0){
                 if (Board.canMove(i, j)){
+                    countClicks++;
                     Board.Movetile(i, j);
                     UpdateGUI(dim,n,gui);
                 } else{
@@ -106,6 +109,6 @@ public class Main {
                 }
             }
         }
-        System.out.println("Bravo");
+        System.out.println("Usato " + countClicks + " per completare il problema");
     }
 }

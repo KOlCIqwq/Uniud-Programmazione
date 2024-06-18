@@ -14,6 +14,7 @@ public class Board {
           private int size;
           private int queens;
           private String config;
+          // Each will memorize the inserted queens and their attack position as list
           private IntSList COL;
           private IntSList ROW;
           private IntSList DgP;
@@ -29,6 +30,7 @@ public class Board {
             DgM = IntSList.NULL_INTLIST;
           }
 
+          // Each time we add a queen we need to update the variables
           private Board(Board b, IntSList r, IntSList c, IntSList dgp, IntSList dgm, String conf){
             size = b.size();
             queens = b.queensOn() + 1;
@@ -69,6 +71,7 @@ public class Board {
           public Board addQueen(int i, int j){
             // Give the queens position
             String conf = arrangment() + " " + ROWS.charAt(i) + COLS.charAt(j) +" ";
+            // Init a new Board containing info. of current board and the new positions
             return new Board(this, ROW.cons(i), COL.cons(j), DgP.cons(i+j), DgM.cons(i-j), conf);
           }
           public String arrangment(){

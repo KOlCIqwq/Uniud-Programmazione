@@ -10,7 +10,7 @@ public class Queens {
 
   
   public static int numberOfSolutions( int n ) {
-    
+    // Init function
     return numberOfCompletions( new Board(n) );
   }
 
@@ -20,17 +20,14 @@ public class Queens {
     int q = b.queensOn();
     
     if ( q == n ) {
-    
       return 1;
-    
     } else {
     
       int i = q + 1;
       int count = 0;
-      
+      // try each col for the next row
       for ( int j=1; j<=n; j=j+1 ) {
         if ( !b.underAttack(i,j) ) {
-        
           count = count + numberOfCompletions( b.addQueen(i,j) );
       }}
       return count;

@@ -2,9 +2,7 @@ package Lab11;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(josephus(2));
-        char c = (char) (128 * Math.random());
-        System.out.println(c);
+        System.out.println(josephus(3));
     }
     
 
