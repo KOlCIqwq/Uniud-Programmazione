@@ -4,8 +4,8 @@ import java.util.Stack;
 
 public class G20 {
     public static void main(String[] args) {
-        System.out.println(rec2(8, 5, 12));
-        System.out.println(rec(8, 5, 12));
+        System.out.println(rec2(8, 5, 15));
+        System.out.println(rec(8, 5, 15));
     }
     // min x = 1, max = 8
     // min y = 5, max = 12
