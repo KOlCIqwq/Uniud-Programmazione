@@ -22,7 +22,7 @@ public class esercitazione{
                     System.out.println(heapCheck( new double[] { 5.0, 3.1, 5.7, 3.1, 8.5, 6.0, 3.0, 4.2, 9.3 } )); 
                     String s = lpsDP("abcdadcba");
                     System.out.println(s);
-                    
+                    System.out.println("a" + 1);
                 }
 
           //1.
@@ -234,7 +234,15 @@ public class esercitazione{
             return mem[0][n-1];
             }
             
-            public static String longer(String a, String b) {
-                return a.length() > b.length() ? a : b;
+            public static String longer(String a, String b){
+                if (a.contains("null")){
+                   return b;
+                } else if (b.contains("null")){
+                    return a;
+               } else{
+                   return (a.length() < b.length())? b : a;
+               }
             }
+
+         
 }

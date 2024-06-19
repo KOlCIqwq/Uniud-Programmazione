@@ -6,7 +6,12 @@ public class G20 {
     public static void main(String[] args) {
         System.out.println(rec2(8, 5, 15));
         System.out.println(rec(8, 5, 15));
+        System.err.println(rec4(4, 10));
+        System.err.println(rec3(4, 10));
+        System.err.println(f(9, 9, 3, 3));
     }
+
+    
     // min x = 1, max = 8
     // min y = 5, max = 12
     // min z = 12, max = 12
@@ -31,6 +36,66 @@ public class G20 {
                     mem[i][j] = mem[i-1][j] + i * mem[i][j+1];
                 
             }
+        }
+        return mem[x][y];
+    }
+    public static long rec4( int n, int k ) { // 0 ≤ n ≤ k
+        if ( n * (n-k) >= 0 ) {
+        return 1;
+        } else {
+        return rec4( n, k-1 ) + rec4( k-n, k-1 );
+        }
+        }
+
+    public static long rec3(int n, int k){
+        long[][] mem = new long[k-n][k+1];
+        for (int j = 0; j <= k; j++) {
+            for (int i = 0; i <= n; i++) {
+                if (i * (i - j) >= 0) {
+                    mem[i][j] = 1;
+                }
+            }
+        }
+        for (int j = 1; j <= k; j++){
+            for (int i = 0; i <= n; i++){
+                if (i*(i-j) < 0){
+                    mem[i][j] = mem[i][j-1] + ((j - i >= 0 && j - i <= n) ? mem[j - i][j - 1] : 0);
+                }
+            }
+        }
+        return mem[n][k];
+    }
+
+    public static int f (int u, int v, int x, int y){
+        int[][] mem = new int[x+1][y+1];
+        if (u == 0){
+            for (int i = 0; i < x; i++){
+                mem[i][0] = 0;
+            }
+        } else{
+            for (int i = 0; i < x; i++){
+                mem[i][0] = 1;
+            }
+        }
+        if (v == 0){
+            for (int i = 0; i < y; i++){
+                mem[0][i] = 0;
+            }
+        } else{
+            for (int i = 0; i < y; i++){
+                mem[0][i] = 1;
+            }
+        }
+        return frec(u,v,x,y,mem);
+    }
+    public static int frec(int u, int v, int x, int y, int[][]mem){
+        if (x == u && y == v){
+            mem[x][y] = 0;
+        }else if (y==0 || x==0){
+            return mem[0][0];
+        } 
+        else{
+            mem[x][y] = frec(u, v, x-1, y, mem) + frec(u, v, x, y-1, mem);
         }
         return mem[x][y];
     }
