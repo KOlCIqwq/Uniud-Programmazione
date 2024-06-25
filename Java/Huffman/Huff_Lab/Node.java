@@ -1,5 +1,7 @@
 package Huffman.Huff_Lab;
 
+ 
+
 public class Node implements Comparable<Node> {
 
     private final char chr;
@@ -16,7 +18,7 @@ public class Node implements Comparable<Node> {
 
     public Node(Node left, Node right){
         chr = (char)0;
-        weight = left.Weight() + right.Weight();
+        weight = left.weight() + right.weight();
         lft = left;
         rght = right;
     }
@@ -25,26 +27,26 @@ public class Node implements Comparable<Node> {
         return chr;
     }
 
-    public boolean IsLeaf(){
+    public boolean isLeaf(){
         return (lft == null);
     }
 
-    public int Weight(){
+    public int weight(){
         return weight;
     }
 
-    public Node Left(){
+    public Node left(){
         return lft;
     }
 
-    public Node Right(){
+    public Node right(){
         return rght;
     }
 
     public int compareTo(Node n){
-        if (Weight() < n.Weight()){
+        if (weight() < n.weight()){
             return -1;
-        } else if (Weight() == n.Weight()){
+        } else if (weight() == n.weight()){
             return 0;
         } else{
             return 1;

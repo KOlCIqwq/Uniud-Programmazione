@@ -1,5 +1,7 @@
 package Huffman.Huff_Lab;
 
+ 
+
 class NodeQueue{
   // A PriorityQueue is an unbounded priority queue based on a priority heap (definition by oracle)
     private static Node[] heap;
@@ -42,7 +44,8 @@ class NodeQueue{
         resize();
       }
       heap[size] = n;
-      heapifyadd(size++);
+      size++;
+      heapifyadd(size-1);
     }
     // Transforming a head into a correct order after adding a new element
     private static void heapifyadd(int index){
@@ -50,11 +53,12 @@ class NodeQueue{
       while (index > 0){
           // Compare the val of the current leaf with it's parent 
           int parentIndex = (index - 1) / 2;
-          if (heap[index].Weight() >= heap[parentIndex].Weight()){
+          if (heap[index].weight() >= heap[parentIndex].weight()){
               break;
           }
           // If the current is less to it's parent swap them
           swap(index, parentIndex);
+          index = parentIndex;
       }
     }
 
@@ -71,12 +75,12 @@ class NodeQueue{
         // At the start we suppose that the left is smaller than right
         int smallestId = leftId;
         // If left is not smaller than rigth, we change the smallest number's index to right leaf
-        if (rightId < size && heap[rightId].Weight() < heap[leftId].Weight()) {
+        if (rightId < size && heap[rightId].weight() < heap[leftId].weight()) {
             smallestId = rightId;
         }
         
         // If the biggest number picked is smaller than the left/right leaf meaning the heap is not well built, break throwing an error
-        if (heap[index].Weight() <= heap[smallestId].Weight()) {
+        if (heap[index].weight() <= heap[smallestId].weight()) {
             //System.err.println("Heap is not organized");
             break;
         }

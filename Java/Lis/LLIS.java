@@ -1,11 +1,13 @@
+package Lis;
+
 // To get the max of a number in an array 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class LLIS {
     public static void main(String[] args) {
-        //System.out.println(lisMem(new int[] {6, 1, 7, 2, 8, 3, 9, 4, 10, 5}));
+        System.out.println(lisMem(new int[] {6, 1, 7, 2, 8, 3, 9, 4, 10, 5}));
         System.out.println(lisGen(new int[] {6, 1, 7, 2, 8, 3, 9, 4, 10, 5, 6}));
-        System.out.println(lisDP(new int[] {2, 7, 5, 7, 4}));
+        //System.out.println(lisDP(new int[] {2, 7, 5, 7, 4}));
     }
 
     public static int lisMem(int[] s){
@@ -80,7 +82,7 @@ public class LLIS {
         }
     
     // Using Dynamic Programming
-    public static int lisDP(int[] s){
+    /*public static int lisDP(int[] s){
         int n = s.length;
         int[] Dp = new int [s.length+1];
         for (int k = 0; k <= s.length; k++){
@@ -94,5 +96,5 @@ public class LLIS {
             }
         }
         return Arrays.stream(Dp).max().getAsInt();
-    }
+    }*/
 }
