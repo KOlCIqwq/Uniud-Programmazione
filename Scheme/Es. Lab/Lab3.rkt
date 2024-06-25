@@ -100,12 +100,12 @@
               [(= (length base) 10) s]
               [else (+ (Adot (cdr s) (length base)) (Bdot s (length base)))])
         ; if the string does not contain fractional part:
-        (cond [(= (first s) -3) (* -1 (Bdot s (length base)))]
+        (cond [(= (first s) -3) (* -1 (Bdot (cdr s) (length base)))]
               [(= (first s) -5) (Bdot s (length base))]
               [(= (length base) 10) s]
               [else (Bdot s (length base))])
     )
-  )
+  ) 
   )
 
 ;Transform the string into a list following the base
