@@ -1,7 +1,5 @@
 package Huffman.Huff_Lab;
 
- 
-
 public class Node implements Comparable<Node> {
 
     private final char chr;

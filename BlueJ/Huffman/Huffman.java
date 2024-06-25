@@ -85,8 +85,8 @@ public class Huffman {
     private static final Node HUFFMAN_TREE = buildHuffmanTree();
 
     private static Node buildHuffmanTree() {
-        PriorityQueue<Node> queue = new PriorityQueue<Node>();
-        //NodeQueue queue = new NodeQueue();
+        //PriorityQueue<Node> queue = new PriorityQueue<Node>();
+        NodeQueue queue = new NodeQueue();
         for (int c = 0; c < 128; c++) {
             if (frequency[c] > 0) {
                 Node n = new Node((char) c, frequency[c]);
