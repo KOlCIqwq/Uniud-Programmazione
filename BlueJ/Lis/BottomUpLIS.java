@@ -6,7 +6,8 @@ public class BottomUpLIS {
     
   }
 
-  public static int llisDP( int[] s ) {
+  public static int llisDP(int[] s) {
+    //int[] s = new int[] {27, 90, 7, 29, 49, 8, 53, 1, 28, 6};
     int n = s.length;
     int[][] mem = new int[ n+1 ][ n+1 ];
     // Fill the first col with 0
@@ -25,7 +26,9 @@ public class BottomUpLIS {
           mem[i][j] = Math.max(1+mem[i+1][i], mem[i+1][j]);
         }
     }}
-    // Return the value of 0,0 shown by the picture
+    // I don't know why BlueJ don't return the value, so I let it printout
+    System.out.println(mem[0][n]);
+    // Return the value of 0,n shown by the picture
     return mem[0][n];
   }
   
@@ -74,6 +77,8 @@ public class BottomUpLIS {
       }
       i++;
     }
+    // I don't know why BlueJ don't return the value, so I let it printout
+    System.out.println(Arrays.toString(r));
     return r;  
   }
 }  // class BottomUpLIS

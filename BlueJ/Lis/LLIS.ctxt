@@ -10,6 +10,4 @@ comment4.params=s
 comment4.target=int\ lisGen(int[])
 comment5.params=s\ i\ j\ mem
 comment5.target=int\ llisRec(int[],\ int,\ int,\ int[][])
-comment6.params=s
-comment6.target=int\ lisDP(int[])
-numComments=7
+numComments=6

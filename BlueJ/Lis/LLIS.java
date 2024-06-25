@@ -14,6 +14,9 @@ public class LLIS {
                 mem[k][l] = -1;
             }
         }
+        int out = lisRec(s,0,0,mem);
+        // I don't know why BlueJ don't return the value, so I let it printout
+        System.out.println(out);
         return lisRec(s,0,0,mem);
     }
 
@@ -49,6 +52,9 @@ public class LLIS {
                     mem[k][l] = -1;
                 }
             }
+            int out = llisRec(s,0,len,mem);
+            // I don't know why BlueJ don't return the value, so I let it printout
+            System.out.println(out);
             return llisRec(s, 0, len, mem);
         }
     
@@ -73,11 +79,12 @@ public class LLIS {
                     // The second is to skip the current and not moving j pointer
                     mem[i][j] = Math.max(1+llisRec(s, i + 1, i, mem), llisRec(s, i + 1, j, mem));
                 }
+            
             return mem[i][j];
         }
     
     // Using Dynamic Programming
-    public static int lisDP(int[] s){
+    /*public static int lisDP(int[] s){
         int n = s.length;
         int[] Dp = new int [s.length+1];
         for (int k = 0; k <= s.length; k++){
@@ -91,5 +98,5 @@ public class LLIS {
             }
         }
         return Arrays.stream(Dp).max().getAsInt();
-    }
+    }*/
 }
