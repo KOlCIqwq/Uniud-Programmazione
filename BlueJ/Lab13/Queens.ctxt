@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Queens
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=n
+comment2.target=int\ numberOfSolutions(int)
+comment3.params=n
+comment3.target=void\ viewQueens(int)
+comment4.params=b
+comment4.target=int\ numberOfCompletions(Board)
+comment5.params=n
+comment5.target=SList\ listOfAllSolutions(int)
+comment6.params=b
+comment6.target=SList\ listOfAllCompletions(Board)
+comment7.params=gui\ b
+comment7.target=void\ Conf(queens.ChessboardView,\ Board)
+numComments=8

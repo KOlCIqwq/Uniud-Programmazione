@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=RoundTable
+comment1.params=n
+comment1.target=RoundTable(int)
+comment2.params=n\ j\ h\ t
+comment2.target=RoundTable(int,\ int,\ IntSList,\ IntSList)
+comment3.params=
+comment3.target=int\ numberOfKnights()
+comment4.params=
+comment4.target=RoundTable\ serveNeighbour()
+comment5.params=
+comment5.target=RoundTable\ passJug()
+comment6.params=inf\ sup
+comment6.target=IntSList\ range(int,\ int)
+comment7.params=
+comment7.target=java.lang.String\ servingKnights()
+numComments=8

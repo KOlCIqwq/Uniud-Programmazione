@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=btr\ n
+comment2.target=StringSList\ btrplus(java.lang.String,\ int)
+comment3.params=btr
+comment3.target=java.lang.String\ Succ(java.lang.String)
+numComments=4

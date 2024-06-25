@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=LLIS
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=s
+comment2.target=int\ lisMem(int[])
+comment3.params=s\ i\ t\ mem
+comment3.target=int\ lisRec(int[],\ int,\ int,\ int[][])
+comment4.params=s
+comment4.target=int\ lisGen(int[])
+comment5.params=s\ i\ j\ mem
+comment5.target=int\ llisRec(int[],\ int,\ int,\ int[][])
+comment6.params=s
+comment6.target=int\ lisDP(int[])
+numComments=7
