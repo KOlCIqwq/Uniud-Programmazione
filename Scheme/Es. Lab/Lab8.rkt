@@ -10,15 +10,23 @@
 (define (hanoi-picture n k)
   (hanoi-pictures n k 0))
 
-;; The problem is to first let the last disk be on source, since last disk is on source then we need to move n-1 disk to second rod (d->t, t->d)
-;; Now we can move the last disk, lastly we need to move the n-1 disk to destination rod
+;; We can reduce the Hanoi-problem into 3 parts:
+;; 1.Move the n-1 disk from rod s to rod t, using d as temporary rod
+;; 2.Move the nth disk from rod s to rod d
+;; 3.Move the n-1 disk from rod t to rod d, using s as temporary rod
 
 (define (hanoi-rec-disks n k s d t n1 n2 n3) ; s, d, t are source, destination, and temporary rods; n1, n2, n3, are numbers of disks in each rod
     (cond [(= n 0) (list (list s n1) (list d n2) (list t n3))] ; Base case: when there are no disks, return the list of moves
-          ; If the move we try to calc. is before moving the last disk, we recall the func to calc. the same problem with only n-1 disk, adding 1 disk to source rod
-          [(< k (expt 2 (- n 1))) 
+          ; If the move we try to calc. is before moving the last disk (before the half),
+          ;we recall the func to calc. the same problem with only n-1 disk,
+          ;adding 1 disk to source rod because the biggest disk is for sure on rod1
+          ;Apply the 1st part
+          [(< k (expt 2 (- n 1)))  
            (hanoi-rec-disks (- n 1) k s t d (+ n1 1) n3 n2)]
-          ; If the move is over the last disk, add 1 to destination rod and set the move (k) to k-2^(n-1) and resolve the stack disk on the destination rod
+          ; If the move is over the last disk,
+          ;add 1 to destination rod (moving the biggest disk)
+          ;and set the move k to k-2^(n-1), reducing the problem to n-1 disk
+          ;Apply the 3rd part
           [else
            (hanoi-rec-disks (- n 1) (- k (expt 2 (- n 1))) t d s n3 (+ n2 1) n1)] 
           ))
