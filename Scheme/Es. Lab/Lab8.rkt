@@ -9,7 +9,7 @@
     (hanoi-rec-disks-more-info n k 1 2 3 0 0 0 null null null))
 (define (hanoi-picture n k)
   (hanoi-pictures n k 0))
-
+ 
 ;; We can reduce the Hanoi-problem into 3 parts:
 ;; 1.Move the n-1 disk from rod s to rod t, using d as temporary rod
 ;; 2.Move the nth disk from rod s to rod d

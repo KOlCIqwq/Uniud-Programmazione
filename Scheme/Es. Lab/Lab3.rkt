@@ -82,7 +82,9 @@
 (define (listchar-to-listint lst)
   (if (null? lst)
       '()
+             ;If uppercase                                                            ; -7 to convert 17 to 10
       (cond [(and (> (char-to-int (first lst)) 16) (< (char-to-int (first lst)) 41))  (cons (- (char-to-int (first lst)) 7) (listchar-to-listint (cdr lst)))]
+             ;If lowercase
             [(and (> (char-to-int (first lst)) 48) (< (char-to-int (first lst)) 74))  (cons (- (char-to-int (first lst)) 39) (listchar-to-listint (cdr lst)))]
             [else (cons (char-to-int (first lst)) (listchar-to-listint (cdr lst)))]
       )
@@ -94,10 +96,11 @@
 (define (rep->number base s)
   (let [(s (listchar-to-listint (T base s 0)))
         (base (string->list base))]
-    (if (belong1? #\. s) 
+    (if (belong1? #\. s)
+        ; converting '-' to int it's -3, and '+' sign is -5
         (cond [(= (first s) -3) (* -1 (+ (Adot (cdr s) (length base)) (Bdot (cdr s) (length base))))]
               [(= (first s) -5) (+ (Adot (cdr s) (length base)) (Bdot (cdr s) (length base)))]
-              [(= (length base) 10) s]
+              [(= (length base) 10) s] ;If it's base 10 then just output s
               [else (+ (Adot (cdr s) (length base)) (Bdot s (length base)))])
         ; if the string does not contain fractional part:
         (cond [(= (first s) -3) (* -1 (Bdot (cdr s) (length base)))]
@@ -109,7 +112,7 @@
   )
 
 ;Transform the string into a list following the base
-;K is 0 for first cycle, which converts all the letters that contain the first letter of base
+;k is 0 for first cycle, which converts all the letters that contain the first letter of base
 ;"uz" "uzuz"-> '(#\u #\z #\u #\z) -> '(#\0 #\z #\u #\z) -> '(#\0 #\z #\0 #\z) -> '(#\0 #\1 #\0 #\z) -> '(#\0 #\1 #\0 #\1)
 ;            k = 0                                                           "z" "0z0z" k = 1                           end
 

@@ -10,7 +10,7 @@
            (manhattan-xy down (- right 1)))
         )
     ))
-;no z-axis
+;no x-axis
 (define manhattan-yz       
   (lambda (down depth)  
     (if (or (= down 0) (= depth 0))

@@ -44,14 +44,20 @@
 (define (L num)
   (if (power-two? num)
       (if (= num 1)
-      L-tile  
+          L-tile  
       (glue-tiles
-                (glue-tiles
-                 (glue-tiles (L (/ num 2))
-                             (shift-right (quarter-turn-right (L (/ num 2))) num))
+      (glue-tiles
+      (glue-tiles
+                 ; Top-Left tile
+                 (L (/ num 2))
+                 ; Top-Right tile
+                 (shift-right (quarter-turn-right (L (/ num 2))) num))
+                 ;Bottom-Left tile
                  (shift-down (quarter-turn-left (L (/ num 2))) num))
-                (shift-down (shift-right (L (/ num 2)) (/ num 2)) (/ num 2))))
+                 ;Center
+                 (shift-down (shift-right (L (/ num 2)) (/ num 2)) (/ num 2))
+      ))
       "Not power of two!"
       )
-  )
+  ) 
     

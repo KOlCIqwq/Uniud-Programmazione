@@ -33,8 +33,8 @@
       )
     )
   )
-; Outputs the position instead of T or F
 
+; Outputs the position instead of T or F
 (define check-next-pos
   (lambda (num lst k)
       (cond [(= (list-ref lst k) num) k]
@@ -82,31 +82,33 @@
   )
 
 ;; Order the list (Merge sort)
-;; Tree-rec. to cut the lst into 2, everytime until it gets to a single element, then the merge func. will compare two elements returning 1 lst,
-;; We keep going up by comparing 2 already sorted list to get to final sorted array
+; (sorted-list '(4 2 7 1 5))
+;merge(sorted-list'(4 2))(sorted-list'(7 1 5))
+;merge(4 2)->(2 4) merge(7 1)->(1 7), merge('(1 7) 5)->(1 5 7)
+;merge('(2 4) '(1 5 7))->(1 2 4 5 7)
 (define (sorted-list lst)
   (cond [(<= (length lst) 1) lst] ; List has only 1 member print lst
-   (else (merge (sorted-list (take lst (quotient (length lst) 2))) (sorted-list (drop lst (quotient (length lst) 2))))
+   (else (merge (sorted-list (take lst (quotient (length lst) 2))) (sorted-list (drop lst (quotient (length lst) 2)))))
    )
   )
 
-;Cut the list at n pos
-(define (take lst n) ; Not defined in Teaching Language, but defined in Racket language, 
-  (if (= n 0) '()    ; so it's a function that gives a fresh list which stops at n element
+;Cut the list at n pos and car the first nth elements of the list
+(define (take lst n) 
+  (if (= n 0) '()    
       (cons (car lst) (take (cdr lst) (- n 1)))))
 
-;Drop the rest
-(define (drop lst n) ;Not defined, it's a function to drop the element after n
+;Cut the list at n pos and remove the nth elements
+(define (drop lst n)
   (if (= n 0) lst
       (drop (cdr lst) (- n 1))))
 
 (define (merge lst1 lst2) ;Merge two list
   (cond [(null? lst1) lst2] ;Null first part?
    [(null? lst2) lst1] ;Null second part?
-   [(<= (car lst1) (car lst2)) (cons (car lst1) (merge (cdr lst1) lst2))] ;If the first element of the first part is smaller than second part Cons the first of lst1 and the rest of lst1 + lst2
-   (else (cons (car lst2) (merge lst1 (cdr lst2)))) ;If the second part is smaller then first element of lst2 + lst1 + rest lst2 
+   [(<= (car lst1) (car lst2)) (cons (car lst1) (merge (cdr lst1) lst2))]
+   (else (cons (car lst2) (merge lst1 (cdr lst2))))
    )
-  )
+  ) 
 
 ;Debug
 ;(sorted-list '(4 2 7 1 5))

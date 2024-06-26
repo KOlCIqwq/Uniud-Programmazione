@@ -20,7 +20,7 @@
       )
   )
 
-;Exclude the last character 
+;Remove the last character 
 (define (head s)
   (if (string=? s "")
       ""
@@ -38,6 +38,10 @@
                              (string (btr-digit-sum (lsd s1) (lsd s2) c)))]
         )
   )
+;Passing '-' '-' '-'  -> -3 = -1(3)+0 -> carry is -1('-') and digit is 0('.')
+;Passing '-' '-' '.' -> -2 = -2-1+1 -> -1(3)+1 -> carry is -1 and digit 0
+;Passing '+' '+' '+' -> +3 = +1(3)+0
+;Passing '+' '+' '.' -> +2 = +2+1-1 -> +1(3)-1
 
 (define btr-digit-sum                    ; val:     carattere +/./-
   (lambda (u v c)                        ; u, v, c: caratteri +/./-

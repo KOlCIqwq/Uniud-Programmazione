@@ -45,7 +45,7 @@
   (lambda (verb)
     (let ((Verb_L (string-ref verb (- (string-length verb)3)))
           (Sub_re (substring verb 0 (- (string-length verb)3))))
-      (cond [(char=? Verb_L #\a) (string-append Sub_re "ano")]
+      (cond [(char=? Verb_L #\a) (string-append Sub_re "ano")] ; Se ultima lettera e' a, allora togli ultima lettera(sub_re) e append "ano"
           (else (string-append Sub_re "ono") 
                 ) 
           )

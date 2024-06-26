@@ -19,7 +19,7 @@
   )
 ;To let input be a string
 (define (latin-caesar-cipher-rec str k out)
-  ;Its a for loop with rec, k goes from 0 to length and out is updating every time the function got recalled
+  ;k goes from 0 to length and out is updating every time the function got recalled
   (if (= k (string-length str))
       out
       (latin-caesar-cipher-rec str (+ k 1) (string-append out (string(latin-caesar-cipher-char (string-ref str k)))))
@@ -50,19 +50,20 @@
 ;Check next
 (define check-next
   (lambda (c lst k)
-      (cond [(= k 0) -3]
+      (cond [(= k 0) -3] ; When c is not in lst, k = 0(meaning looped all elements and not found), output -3 to let it equal #\space
             [(char=? (list-ref lst k) c) k]
             [else (check-next c lst (- k 1))]
       )
       )
     )
 
+
 ;Identity 
 (define (id x) x)
 ;s2 refering to succ
 (define (s2 u v) (+ v 1))
 
-;Main H function requiring f g as function, m n as inputs
+;Main H function requiring f g as input functions, return it self a function requiring 2 inputs(m,n)
 (define (H f g)
   (lambda (m n)
     (if (= n 0)
@@ -71,14 +72,23 @@
         )
     )
   )
+
 ;add = H (identity -> x) (s2 -> v+1), m n as inputs
 ;It recalls H decresing n to 0 and applying +1 to m each time H function is recalled
-;(add 1 2)-> (s2 1 (add 1 1))->(s2 1 (s2 1 (add 1 0)))->(s2 1 (s2 1 (1)))->(s1 1(2))->3
+;(add 1 2) 
+;= (s2 1 (add 1 1)) 
+;= (s2 1 (s2 1 (add 1 0))) 
+;= (s2 1 (s2 1 (id 1))) 
+;= (s2 1 (s2 1 1)) 
+;= (s2 1 2) 
+;= 3
 (define add (H id s2))
 
 ;Uses add function to increment itself
 ;(mul 3 2)->(add 3 (mul 3 1))->(add 3 (add 3 (mul 3 0)))->(add 3 (add 3 (0)))->(add 3 (3))->(s2 3 (add 3 2)))->...->6
 (define mul (H (lambda (x) 0) add))
+
+;Use mul function to increment itself
 ;(pow 3 2)->(mul 3 (pow 3 1))->(mul 3 (mul 3 (pow 3 0)))->(mul 3 (mul 3 1))->(mul 3 (add 3 0))->(mul 3 3)->(add 3 (mul 3 2))->...->9 
 (define pow (H (lambda (x) 1) mul))
 
