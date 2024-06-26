@@ -1,97 +1,56 @@
  
 
 public class RoundTable {
+    private IntSList knights;
+    private int current;
 
-
-  private final int num;                   // numero di cavalieri a tavola
-  private final int jug;                   // etichetta del cavaliere con la brocca
-  private final IntSList head;             // lista di cavalieri successivi (numerati)
-  private final IntSList tail;             // lista rovesciata dei cavalieri rimanenti
-
-  
-  public RoundTable( int n ) {             // creazione di una tavola
-                                           // con n cavalieri
-    num = n;
-    jug = 1;
-    head = range( 2, n );
-    tail = IntSList.NULL_INTLIST;
-  }
-  
-  
-  // ----- Costruttore non pubblico di supporto
-  
-  private RoundTable( int n, int j, IntSList h, IntSList t ) {
-  
-    num = n;
-    jug = j;
-    head = h;
-    tail = t;
-  }
-  
-  
-  // ----- Metodi del protocollo: acquisizione di informazioni sulla configurazione
-  
-  public int numberOfKnights() {           // numero di cavalieri a tavola
-  
-    return num;
-  }
-
-  
-  // ----- Metodi del protocollo: generazione di configurazioni successive
-  
-  //        (*)  n: c_1 () (c_k, ..., c_3, c_2)  -->  n-1: c_1 (c_3, c_4, ..., c_k) ()
-  //       (**)  n: c_1 (c_2, ..., c_j) (c_k, ..., c_j+1)
-  //                                   -->  n-1: c_1 (c_3, ..., c_j) (c_k, ..., c_j+1)
-  
-  public RoundTable serveNeighbour() {     // serve il commensale vicino a sinistra:
-                                           // il commensale servito lascia la tavola
-    if ( num < 2 ) {                       // meno di due commensali
-      return this;
-    } else if ( head.isNull() ) {          // (*)
-      IntSList rev = tail.reverse();
-      return new RoundTable( num-1, jug, rev.cdr(), IntSList.NULL_INTLIST );
-    } else {                               // (**)
-      return new RoundTable( num-1, jug, head.cdr(), tail );
+    public RoundTable(int n) {
+        knights = IntSList.NULL_INTLIST;
+        for (int i = n; i >= 1; i--) {
+            knights = knights.cons(i);
+        }
+        current = 0;
     }
-  }
-  
-  
-  //        (*)  n: c_1 () (c_k, ..., c_3, c_2)  -->  n: c_2 (c_3, c_4, ..., c_k, c_1) ()
-  //       (**)  n: c_1 (c_2, ..., c_j) (c_k, ..., c_j+1)
-  //                                   -->  n: c_2 (c_3, ..., c_j) (c_1, c_k, ..., c_j+1)
-  
-  public RoundTable passJug() {            // passa la brocca al commensale vicino
-                                           // (a sinistra)
-    if ( num < 2 ) {                       // meno di due commensali
-      return this;
-    } else if ( head.isNull() ) {          // (*)
-      IntSList rev = ( tail.cons(jug) ).reverse();
-      return new RoundTable( num, rev.car(), rev.cdr(), IntSList.NULL_INTLIST );
-    } else {                               // (**)
-      return new RoundTable( num, head.car(), head.cdr(), tail.cons(jug) );
+
+    public int numberOfKnights() {
+        return knights.length();
     }
-  }
-  
-  
-  // ----- Procedura interna di supporto (private!)
-  
-  private static IntSList range( int inf, int sup ) {
-  
-    if ( inf > sup ) {
-      return IntSList.NULL_INTLIST;
-    } else {
-      return range( inf+1, sup ).cons( inf );
+
+    public String servingKnights() {
+        return knights.toString();
     }
-  }
 
-  public String servingKnights(){
-    IntSList list = IntSList.NULL_INTLIST;
-    // The result is returned as n+1 (maybe it's messed up with starting point), so -1 for the correct visualization
-    list = list.cons(jug-1);
-    list = list.cons(head.car()-1);
-    //list = list.reverse();
-    return list.toString();
-  }
+    public RoundTable serveNeighbour() {
+        // Find the index of the knight to remove, jumping 2 knights
+        // % knights.length() to prevent overflow
+        // if current + 1 = 4 and knights.length = 4, we can't point to the 4th element since it goes outOfRange
+        // so 4%4=0 and the current pointer correctly points to the first element as a circle
+        int toRemoveIndex = (current + 2) % knights.length();
+        // Remove knight at index
+        knights = removeAtIndex(knights, toRemoveIndex);
+        // Suppose we have [1,2,3,4], if I want to remove 3 (index = 2) but the current is 3 (last element)
+        // The list after removeval will be [1,2,4] and current can't still be 3, otherwise it will go outOfRange
+        if (toRemoveIndex < current) {
+            current--;
+        }
+        // Update the current passing to the next knight
+        current = (current + 1) % knights.length();
+        return this;
+    }
 
-} 
+    public RoundTable passJug() {
+        // Jump 1 knight
+        current = (current + 1) % knights.length();
+        return this;
+    }
 
+    // Helper function to remove the element of list at index
+    private IntSList removeAtIndex(IntSList list, int index) {
+        if (index == 0) {
+            return list.cdr();
+        } else {
+            // Recursion
+            return new IntSList(list.car(), removeAtIndex(list.cdr(), index - 1));
+        }
+    }
+}
