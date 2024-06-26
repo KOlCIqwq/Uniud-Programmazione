@@ -27,7 +27,7 @@ public class BottomUpLIS {
         }
     }}
     // I don't know why BlueJ don't return the value, so I let it printout
-    System.out.println(mem[0][n]);
+    //System.out.println(mem[0][n]);
     // Return the value of 0,n shown by the picture
     return mem[0][n];
   }
@@ -56,11 +56,12 @@ public class BottomUpLIS {
         }
     }}
 
-    int m = mem[0][n]; // Start from the end point
+    int m = mem[0][n]; // LLIS (length)
 
     int[] r = new int[ m ];  // Initialize a output array with length at least length
     
     // Initialize new pointers to restore the subsequence
+    // i and j starts from the cell that contains LLIS
     int i = 0;
     int j = n;
     int pointer = 0; // Output array pointer
@@ -78,7 +79,7 @@ public class BottomUpLIS {
       i++;
     }
     // I don't know why BlueJ don't return the value, so I let it printout
-    System.out.println(Arrays.toString(r));
+    //System.out.println(Arrays.toString(r));
     return r;  
   }
 }  // class BottomUpLIS

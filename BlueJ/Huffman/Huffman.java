@@ -81,28 +81,31 @@ public class Huffman {
         out.close();
     }
 
-    // Costruzione dell'albero di Huffman predefinito
     private static final Node HUFFMAN_TREE = buildHuffmanTree();
 
     private static Node buildHuffmanTree() {
         //PriorityQueue<Node> queue = new PriorityQueue<Node>();
         NodeQueue queue = new NodeQueue();
         for (int c = 0; c < 128; c++) {
+            // Adding all the 128 chars and it's frequency inside the NodeQueue as SingleNode
             if (frequency[c] > 0) {
                 Node n = new Node((char) c, frequency[c]);
+                // Each time we add the node it starts the process of heapify, to mantain the first as the one which weight the least
                 queue.add(n);
             }
         }
+        // Start to construct the tree, and store the paired node also insiede the NodeQueue
+        // The program will terminate when it has done doing the tree (when queue.size() == 1)
         while (queue.size() > 1) {
             Node l = queue.poll();
             Node r = queue.poll();
             Node n = new Node(l, r);
             queue.add(n);
         }
+        // Return the tree.
         return queue.poll();
     }
 
-    // 3. Tabella di codifica dei caratteri
     public static String[] huffmanCodesTable(Node root) {
         String[] codes = new String[128];
         fillTable(root, "", codes);
@@ -118,9 +121,8 @@ public class Huffman {
         }
     }
 
-    // 5. Compressione
     public static void compress(String src, String dst) {
-        Node root = HUFFMAN_TREE;
+        Node root = buildHuffmanTree();
         String[] codes = huffmanCodesTable(root);
 
         InputTextFile in = new InputTextFile(src);
@@ -142,7 +144,6 @@ public class Huffman {
         out.close();
     }
 
-    // 7. Decompressione
     public static void decompress(String src, String dst) {
         Node root = HUFFMAN_TREE;
 
@@ -175,7 +176,6 @@ public class Huffman {
         return n.symbol();
     }
 
-    // 8. Programma principale
     public static void main(String[] args) {
         System.out.println("huffman coding:");
         if (args[0].equals("compress")) {

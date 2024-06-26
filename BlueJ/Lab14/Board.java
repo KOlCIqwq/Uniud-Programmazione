@@ -76,8 +76,8 @@ public class Board {
         // Loop the board
         for (int i = 0; i < dim; i++){
             for (int j = 0; j < dim; j++){
-                // i != dim - 1 && j != dim - 1 to not look at the last grid because it will hole
-                if (table[i][j] != prev + 1 && i != dim - 1 && j != dim - 1){
+                // Check if the current number is prev. + 1
+                if (table[i][j] != prev + 1){
                     return false;
                 }
                 prev = table[i][j];

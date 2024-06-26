@@ -20,6 +20,8 @@ public class Main {
         System.out.println(n.toString());
         String overview = n.guiString();
         System.out.println(overview);
+        
+        start(x);
         //int[] x = n.findPosition(6);
         //System.out.println(Arrays.toString(x));
         
@@ -78,7 +80,7 @@ public class Main {
         }
     } 
 
-    //Update the Gui after a user click
+    //Update the Gui after user's click
     public static void UpdateGUI(int dim, Board n, PuzzleBoard gui){
         // Loop the table
         for (int i = 0; i < dim; i++) {
@@ -86,9 +88,11 @@ public class Main {
                 int num = n.getNum(i, j);
                 // If the num is a hole
                 if (num == 0){
+                    // + 1 Because the range of index goes from 1 to n
+                    // But the index I used for my table goes from 0 to n-1
                     gui.clear(i+1,j+1);
                 } else{
-                    // Else just keep going forward incrementing index
+                    // If it's a number set it on gui
                     gui.setNumber(i + 1, j + 1, num);
                 }
             }

@@ -5,7 +5,7 @@ public class LLIS {
     public static void main(String[] args) {
     }
 
-    public static int lisMem(int[] s){
+    public static int llisMem(int[] s){
         int len = s.length;
         int[][] mem = new int [len+1][len+1];
 
@@ -16,7 +16,7 @@ public class LLIS {
         }
         int out = lisRec(s,0,0,mem);
         // I don't know why BlueJ don't return the value, so I let it printout
-        System.out.println(out);
+        //System.out.println(out);
         return lisRec(s,0,0,mem);
     }
 
@@ -44,35 +44,35 @@ public class LLIS {
         return mem[i][t];
     }
 
-        public static int lisGen(int[] s) {
-            int len = s.length;
-            int[][] mem = new int[len + 1][len + 1];
-            for (int k = 0; k <= len; k++){
-                for (int l = 0; l <= len; l++){
-                    mem[k][l] = -1;
-                }
+    public static int llisGen(int[] s) {
+        int len = s.length;
+        int[][] mem = new int[len + 1][len + 1];
+        for (int k = 0; k <= len; k++){
+             for (int l = 0; l <= len; l++){
+                mem[k][l] = -1;
             }
-            int out = llisRec(s,0,len,mem);
-            // I don't know why BlueJ don't return the value, so I let it printout
-            System.out.println(out);
-            return llisRec(s, 0, len, mem);
         }
+        int out = llisRec(s,0,len,mem);
+        // I don't know why BlueJ don't return the value, so I let it printout
+        //System.out.println(out);
+        return llisRec(s, 0, len, mem);
+    }
     
         // Instead of giving the number and compare it, we use j as a pointer to the number
-        private static int llisRec(int[] s, int i, int j, int[][] mem) { 
-            // t will be the number
-            int t;
-            // If the j == len (1st case), the prev number will be 0
-                if (j == s.length){
-                    t = 0;
-                } else{ // Else it will assume the prev number
-                    t = s[j];
-                }      
-                if (i == s.length) {
-                    return 0;
-                } else if (mem[i][j] != -1) {
-                    return mem[i][j];
-                } else if (s[i] <= t) {
+    private static int llisRec(int[] s, int i, int j, int[][] mem) { 
+         // t will be the number
+         int t;
+        // If the j == len (1st case), the prev number will be 0
+        if (j == s.length){
+                t = 0;
+        } else{ // Else it will assume the prev number
+                t = s[j];
+             }      
+        if (i == s.length) {
+                return 0;
+        } else if (mem[i][j] != -1) {
+                return mem[i][j];
+            } else if (s[i] <= t) {
                     return llisRec(s, i + 1, j, mem);
                 } else {
                     // 2 ways, the first picking the number and add 1, changing j to current number pointer, thus moving the pointer

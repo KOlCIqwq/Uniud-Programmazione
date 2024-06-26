@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         
-            System.out.println(josephus(1500));
+            System.out.println(josephus(5));
         
     }
     

@@ -3,9 +3,9 @@
 public class Queens {
 
   public static void main( String args[] ) {
-    //Queens q = new Queens();
-		//System.out.println(q.numberOfSolutions(8));
-    //System.out.println(listaSolu(8));
+    Queens q = new Queens();
+    System.out.println(q.numberOfSolutions(8));
+    System.out.println(listaSolu(8));
   }
 
   

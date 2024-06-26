@@ -1,7 +1,7 @@
  
 
 class NodeQueue{
-  // A PriorityQueue is an unbounded priority queue based on a priority heap (definition by oracle)
+  // An unbounded priority queue based on a priority heap (definition by oracle)
     private static Node[] heap;
     private static int size;
 
@@ -45,18 +45,19 @@ class NodeQueue{
       size++;
       heapifyadd(size-1);
     }
+    
     // Transforming a head into a correct order after adding a new element
-    private static void heapifyadd(int index){
+    private static void heapifyadd(int i){
       // Loop to the top
-      while (index > 0){
+      while (i > 0){
           // Compare the val of the current leaf with it's parent 
-          int parentIndex = (index - 1) / 2;
-          if (heap[index].weight() >= heap[parentIndex].weight()){
+          int parent = (i - 1) / 2;
+          if (heap[i].weight() >= heap[parent].weight()){
               break;
           }
           // If the current is less to it's parent swap them
-          swap(index, parentIndex);
-          index = parentIndex;
+          swap(i, parent);
+          i = parent;
       }
     }
 
@@ -65,27 +66,27 @@ class NodeQueue{
     // heap[0] = 6 !<= heap[1] = 1 so no break
     // Swap the values of index, heap = [1,6,2,3,4,5]...
     // It continues to index = 3, heap = [1,3,2,6,4,5] and 3 < 3 so it ends:
-    private static void heapifyToggle(int index){
-      while (index < size / 2) { // Meaning the biggest weigth has arrived at the last leaf
-        int leftId = 2 * index + 1;
-        int rightId = 2 * index + 2;
+    private static void heapifyToggle(int i){
+      while (i < size / 2) { // Meaning the biggest weigth has arrived at the last leaf
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
         // If we did not arrived at the last layer of leaf, then we need to compare 2 leaf's weight
         // At the start we suppose that the left is smaller than right
-        int smallestId = leftId;
-        // If left is not smaller than rigth, we change the smallest number's index to right leaf
-        if (rightId < size && heap[rightId].weight() < heap[leftId].weight()) {
-            smallestId = rightId;
+        int smallest = left;
+        // If left is not smaller than right, we change the smallest number's index to right leaf
+        if (right < size && heap[right].weight() < heap[left].weight()) {
+            smallest = right;
         }
         
         // If the biggest number picked is smaller than the left/right leaf meaning the heap is not well built, break throwing an error
-        if (heap[index].weight() <= heap[smallestId].weight()) {
+        if (heap[i].weight() <= heap[smallest].weight()) {
             //System.err.println("Heap is not organized");
             break;
         }
                 
-        swap(index, smallestId);
+        swap(i, smallest);
         // Update the biggest number index 
-        index = smallestId;
+        i = smallest;
       }
     }
 
