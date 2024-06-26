@@ -15,7 +15,7 @@ public class Huffman {
 
     // Initialize freq
     static {
-        // Frequenze delle lettere minuscole
+        // Lowercase freq
         frequency['a'] = 8167;
         frequency['b'] = 1492;
         frequency['c'] = 2782;
