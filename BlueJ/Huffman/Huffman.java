@@ -3,7 +3,7 @@ import java.util.*;
 import huffman_toolkit.*;
 
 public class Huffman {
-    private static final int LENGTH =  10000;
+    private static final int LENGTH =  100000;
     private static final int[] frequency = new int[128];
 
     // Initialize freq
@@ -44,11 +44,11 @@ public class Huffman {
         }
 
         frequency['.'] = LENGTH / 24; // Approximation: 1 period per sentence, assuming 24 words per sentence
-        frequency[','] = 2925; // 45% of punctuation
-        frequency['\''] = 2600; // 40% of punctuation
-        frequency[':'] = 325; // 5% of punctuation
-        frequency[';'] = 325; // 5% of punctuation
-        frequency['"'] = 325; // 5% of punctuation
+        frequency[','] = 1875; // 45% of punctuation (LENGTH / 24 * 0.45)
+        frequency['\''] = 1666; // 40% of punctuation
+        frequency[':'] = 208; // 5% of punctuation
+        frequency[';'] = 208; // 5% of punctuation
+        frequency['"'] = 208; // 5% of punctuation
 
         frequency[' '] = LENGTH / 5; // Space between each word, each word has 5 letters
 
@@ -56,7 +56,7 @@ public class Huffman {
             // Assuming that the numbers appear only 50 times
             frequency[c] = 50;
         }
-        frequency['\n'] = LENGTH / 245; // Each phrase is 24,5 word long
+        frequency['\n'] = LENGTH / 245; // Each phrase is 24,5 word long, assuming every 10 pharase it goes next line
 
         // Other symbols
         for (char c = 0; c < 128; c++){
