@@ -73,15 +73,13 @@ public class Huffman {
         for (int i = 0; i < length; i++){
             // Let c be any number between 0 and 128
             Random random = new Random();
-            int number = 33 + random.nextInt(127 - 33 + 1);
+            int number = random.nextInt(127);
             char c = (char) number;
             out.writeChar(c);
         }
         System.out.println("genarated" + " " + length + " "+ "chars");
         out.close();
     }
-
-    private static final Node HUFFMAN_TREE = buildHuffmanTree();
 
     private static Node buildHuffmanTree() {
         //PriorityQueue<Node> queue = new PriorityQueue<Node>();
@@ -128,37 +126,43 @@ public class Huffman {
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
         // numero complessivo di caratteri
-        int count = root.weight();  
+        //int count = root.weight();
+        int count = 0;
+        // Mutable String, creating a string obj, that can append(),insert(),delete(),replace(),toString().
+        StringBuilder compressedData = new StringBuilder();
         
-        out.writeTextLine( "" + count );
-        
-        // Leggi il documento, calcola la lunghezza e scrivi i codici
+        // Read the document, increment count reading a char, append to stringbuilder the string
         while (in.textAvailable()) {
             char c = in.readChar();
             if (c < 128) {
-                out.writeCode(codes[c]);
+                compressedData.append(codes[c]);
+                count++;
             }
         }
+        
+        // To have the first line as the length of the compressed file
+        out.writeTextLine( "" + count );
+        out.writeCode(compressedData.toString());
         
         in.close();
         out.close();
     }
 
     public static void decompress(String src, String dst) {
-        Node root = HUFFMAN_TREE;
+        Node root = buildHuffmanTree();
 
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
-        // Leggi la lunghezza del documento (Prima riga)
+        // Read length of compressed data (first line) 
         int count = Integer.parseInt(in.readTextLine());
 
         for (int j = 0; j < count; j++) {
             char c = decodeNextChar(root, in);
-            if (c != ','){ // NodeQueue giving a weird bug to write ',' at the end of file
+            //if (c != ','){ // Length is not equal to weight
                 out.writeChar(c);
-            } else{
-                break;
-            }
+            //} else{
+              //  break;
+            //}
         }
         in.close();
         out.close();

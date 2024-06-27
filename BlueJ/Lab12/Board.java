@@ -6,7 +6,7 @@
 /**
  * Queen
  */
-public class Board {
+public class Board extends IntSList {
   // To print out the position
     private static final String ROWS = " 123456789ABCDEF";
     private static final String COLS = " abcdefghijklmno";
