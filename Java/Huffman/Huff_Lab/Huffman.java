@@ -10,12 +10,12 @@ public class Huffman {
         compress("test.txt", "compress.txt");
         decompress("compress.txt", "decompress.txt");
     }
-    private static final int LENGTH =  10000;
+    private static final int LENGTH =  100000;
     private static final int[] frequency = new int[128];
 
     // Initialize freq
     static {
-        // Lowercase freq
+        // Frequenze delle lettere minuscole
         frequency['a'] = 8167;
         frequency['b'] = 1492;
         frequency['c'] = 2782;
@@ -51,11 +51,11 @@ public class Huffman {
         }
 
         frequency['.'] = LENGTH / 24; // Approximation: 1 period per sentence, assuming 24 words per sentence
-        frequency[','] = 2925; // 45% of punctuation
-        frequency['\''] = 2600; // 40% of punctuation
-        frequency[':'] = 325; // 5% of punctuation
-        frequency[';'] = 325; // 5% of punctuation
-        frequency['"'] = 325; // 5% of punctuation
+        frequency[','] = 1875; // 45% of punctuation (LENGTH / 24 * 0.45)
+        frequency['\''] = 1666; // 40% of punctuation
+        frequency[':'] = 208; // 5% of punctuation
+        frequency[';'] = 208; // 5% of punctuation
+        frequency['"'] = 208; // 5% of punctuation
 
         frequency[' '] = LENGTH / 5; // Space between each word, each word has 5 letters
 
@@ -63,7 +63,7 @@ public class Huffman {
             // Assuming that the numbers appear only 50 times
             frequency[c] = 50;
         }
-        frequency['\n'] = LENGTH / 245; // Each phrase is 24,5 word long
+        frequency['\n'] = LENGTH / 245; // Each phrase is 24,5 word long, assuming every 10 pharase it goes next line
 
         // Other symbols
         for (char c = 0; c < 128; c++){
@@ -80,7 +80,7 @@ public class Huffman {
         for (int i = 0; i < length; i++){
             // Let c be any number between 0 and 128
             Random random = new Random();
-            int number = 33 + random.nextInt(127 - 33 + 1);
+            int number = random.nextInt(127);
             char c = (char) number;
             out.writeChar(c);
         }
@@ -88,24 +88,26 @@ public class Huffman {
         out.close();
     }
 
-    // Costruzione dell'albero di Huffman predefinito
-    private static final Node HUFFMAN_TREE = buildHuffmanTree();
-
     private static Node buildHuffmanTree() {
         //PriorityQueue<Node> queue = new PriorityQueue<Node>();
         NodeQueue queue = new NodeQueue();
         for (int c = 0; c < 128; c++) {
+            // Adding all the 128 chars and it's frequency inside the NodeQueue as SingleNode
             if (frequency[c] > 0) {
                 Node n = new Node((char) c, frequency[c]);
+                // Each time we add the node it starts the process of heapify, to mantain the first as the one which weight the least
                 queue.add(n);
             }
         }
+        // Start to construct the tree, and store the paired node also insiede the NodeQueue
+        // The program will terminate when it has done doing the tree (when queue.size() == 1)
         while (queue.size() > 1) {
             Node l = queue.poll();
             Node r = queue.poll();
             Node n = new Node(l, r);
             queue.add(n);
         }
+        // Return the tree.
         return queue.poll();
     }
 
@@ -124,46 +126,50 @@ public class Huffman {
         }
     }
 
-
     public static void compress(String src, String dst) {
-        Node root = HUFFMAN_TREE;
+        Node root = buildHuffmanTree();
         String[] codes = huffmanCodesTable(root);
 
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
         // numero complessivo di caratteri
-        int count = root.weight();  
+        //int count = root.weight();
+        int count = 0;
+        // Mutable String, creating a string obj, that can append(),insert(),delete(),replace(),toString().
+        StringBuilder compressedData = new StringBuilder();
         
-        out.writeTextLine( "" + count );
-        
-        // Leggi il documento, calcola la lunghezza e scrivi i codici
+        // Read the document, increment count reading a char, append to stringbuilder the string
         while (in.textAvailable()) {
             char c = in.readChar();
             if (c < 128) {
-                out.writeCode(codes[c]);
+                compressedData.append(codes[c]);
+                count++;
             }
         }
+        
+        // To have the first line as the length of the compressed file
+        out.writeTextLine( "" + count );
+        out.writeCode(compressedData.toString());
         
         in.close();
         out.close();
     }
 
-
     public static void decompress(String src, String dst) {
-        Node root = HUFFMAN_TREE;
+        Node root = buildHuffmanTree();
 
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
-        // Leggi la lunghezza del documento (Prima riga)
+        // Read length of compressed data (first line) 
         int count = Integer.parseInt(in.readTextLine());
 
         for (int j = 0; j < count; j++) {
             char c = decodeNextChar(root, in);
-            if (c != ','){ // NodeQueue giving a weird bug to write ',' at the end of file
+            //if (c != ','){ // Length is not equal to weight
                 out.writeChar(c);
-            } else{
-                break;
-            }
+            //} else{
+              //  break;
+            //}
         }
         in.close();
         out.close();
